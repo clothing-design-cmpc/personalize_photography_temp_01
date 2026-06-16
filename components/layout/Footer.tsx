@@ -1,3 +1,5 @@
+"use client";
+
 // LensVerse — Footer
 // Site-wide footer with logo, navigation columns, social links, and legal
 
