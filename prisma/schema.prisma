@@ -1,54 +1,20 @@
+// LensVerse — Prisma Schema
+// Models: Portfolio, Schedule, Booking, Blog, Testimonial, Message, ClientGallery
+
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-// ─── USER (Admin/Staff) ───────────────────────────────────────────────────────
-
-model User {
-  id           String    @id @default(cuid())
-  name         String
-  email        String    @unique
-  passwordHash String
-  role         String    @default("STAFF")
-  lastLoginAt  DateTime?
-  createdAt    DateTime  @default(now())
-}
-
-// ─── SITE SETTINGS ───────────────────────────────────────────────────────────
-
-model SiteSettings {
-  id                 String   @id @default(cuid())
-  siteName           String   @default("LensVerse")
-  siteTagline        String?
-  contactEmail       String?
-  phone              String?
-  address            String?
-  workingHours       String   @default("Mon-Fri 9AM-6PM")
-  instagramUrl       String?
-  facebookUrl        String?
-  tiktokUrl          String?
-  youtubeUrl         String?
-  seoTitle           String?
-  seoDescription     String?
-  ogImageUrl         String?
-  depositPercent     Int      @default(50)
-  currency           String   @default("PHP")
-  availableDays      String[] @default(["MON", "TUE", "WED", "THU", "FRI"])
-  availableStartTime String   @default("09:00")
-  availableEndTime   String   @default("18:00")
-  slotDurationMins   Int      @default(60)
-}
-
-// ─── PORTFOLIO ────────────────────────────────────────────────────────────────
-
+// ─── Portfolio ──────────────────────────────────────────────────────────────
+// Stores each photography project with its images and metadata
 model Portfolio {
-  id          String       @id @default(cuid())
-  slug        String       @unique
+  id          String      @id @default(cuid())
+  slug        String      @unique
   title       String
   category    String
   location    String
@@ -57,30 +23,51 @@ model Portfolio {
   description String
   images      String[]
   videoUrl    String?
-  isFeatured  Boolean      @default(false)
-  isPublished Boolean      @default(true)
-  viewCount   Int          @default(0)
-  createdAt   DateTime     @default(now())
+  isFeatured  Boolean     @default(false)
+  isPublished Boolean     @default(true)
+  createdAt   DateTime    @default(now())
   testimonial Testimonial?
 }
 
-// ─── TESTIMONIAL ─────────────────────────────────────────────────────────────
-
-model Testimonial {
-  id          String     @id @default(cuid())
-  clientName  String
-  occasion    String
-  rating      Int
-  quote       String
-  photoUrl    String?
-  videoUrl    String?
-  portfolioId String?    @unique
-  portfolio   Portfolio? @relation(fields: [portfolioId], references: [id])
-  createdAt   DateTime   @default(now())
+// ─── Schedule ────────────────────────────────────────────────────────────────
+// Tracks available, pending, booked, and blocked time slots
+model Schedule {
+  id        String   @id @default(cuid())
+  date      DateTime
+  startTime DateTime
+  endTime   DateTime
+  // AVAILABLE | PENDING | BOOKED | BLOCKED
+  status    String   @default("AVAILABLE")
+  bookingId String?
+  booking   Booking? @relation(fields: [bookingId], references: [id])
 }
 
-// ─── BLOG ─────────────────────────────────────────────────────────────────────
+// ─── Booking ─────────────────────────────────────────────────────────────────
+// Stores visitor booking submissions from the 7-step booking wizard
+model Booking {
+  id          String     @id @default(cuid())
+  name        String
+  email       String
+  phone       String
+  address     String?
+  eventType   String
+  eventDate   DateTime
+  eventTime   String
+  serviceType String
+  location    String
+  guestCount  Int?
+  budget      String?
+  message     String?
+  // PENDING | APPROVED | REJECTED | COMPLETED | CANCELLED
+  status      String     @default("PENDING")
+  totalPrice  Float?
+  stripeId    String?
+  createdAt   DateTime   @default(now())
+  schedules   Schedule[]
+}
 
+// ─── Blog ────────────────────────────────────────────────────────────────────
+// Photography blog posts with categories and tags
 model Blog {
   id          String   @id @default(cuid())
   slug        String   @unique
@@ -95,60 +82,36 @@ model Blog {
   createdAt   DateTime @default(now())
 }
 
-// ─── SCHEDULE ─────────────────────────────────────────────────────────────────
-
-model Schedule {
-  id        String   @id @default(cuid())
-  date      DateTime
-  startTime DateTime
-  endTime   DateTime
-  status    String   @default("AVAILABLE")
-  note      String?
-  bookingId String?
-  booking   Booking? @relation(fields: [bookingId], references: [id])
-}
-
-// ─── BOOKING ──────────────────────────────────────────────────────────────────
-
-model Booking {
+// ─── Testimonial ─────────────────────────────────────────────────────────────
+// Client testimonials — optionally linked to a Portfolio entry
+model Testimonial {
   id          String     @id @default(cuid())
-  name        String
-  email       String
-  phone       String
-  address     String?
-  eventType   String
-  eventDate   DateTime
-  eventTime   String
-  serviceType String
-  packageTier String?
-  location    String
-  guestCount  Int?
-  budget      String?
-  message     String?
-  status      String     @default("PENDING")
-  totalPrice  Float?
-  stripeId    String?
-  adminNotes  String?
+  clientName  String
+  occasion    String
+  rating      Int
+  quote       String
+  photoUrl    String?
+  videoUrl    String?
+  portfolioId String?    @unique
+  portfolio   Portfolio? @relation(fields: [portfolioId], references: [id])
   createdAt   DateTime   @default(now())
-  schedules   Schedule[]
 }
 
-// ─── MESSAGE ─────────────────────────────────────────────────────────────────
-
+// ─── Message ──────────────────────────────────────────────────────────────────
+// Contact form submissions from visitors
 model Message {
-  id         String   @id @default(cuid())
-  name       String
-  email      String
-  phone      String?
-  subject    String
-  message    String
-  status     String   @default("unread")
-  adminNotes String?
-  createdAt  DateTime @default(now())
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  status    String   @default("unread")
+  createdAt DateTime @default(now())
 }
 
-// ─── CLIENT GALLERY ───────────────────────────────────────────────────────────
-
+// ─── ClientGallery ───────────────────────────────────────────────────────────
+// Token-protected private galleries for delivered client photos
 model ClientGallery {
   id         String    @id @default(cuid())
   token      String    @unique

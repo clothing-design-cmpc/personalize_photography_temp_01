@@ -1,14 +1,21 @@
-import { PrismaClient } from "../generated/prisma";
+// LensVerse — Prisma Client Singleton
+// Prevents multiple PrismaClient instances during Next.js hot reloads in dev
 
-// Prevents multiple Prisma instances in development (Next.js hot reload)
-const prismaClientSingleton = () => new PrismaClient();
+import { PrismaClient } from "@prisma/client";
 
-declare const globalThis: {
-  prismaGlobal: ReturnType<typeof prismaClientSingleton>;
-} & typeof global;
+// Store the instance on the global object in development to survive hot reloads
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined;
+};
 
-const prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
+export const prisma =
+  globalForPrisma.prisma ??
+  new PrismaClient({
+    log: process.env.NODE_ENV === "development"
+      ? ["query", "error", "warn"]
+      : ["error"],
+  });
 
-export default prisma;
-
-if (process.env.NODE_ENV !== "production") globalThis.prismaGlobal = prisma;
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = prisma;
+}

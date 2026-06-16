@@ -1,0 +1,160 @@
+/* ─── Three.js Canvas Styles ────────────────────────────────────────────────── */
+
+/* Full-screen canvas wrapper — used in HeroScene and GalleryScene */
+.threeCanvasWrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  /* GPU acceleration hint */
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* The R3F <Canvas> element itself */
+.threeCanvasWrapper canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: none; /* Prevent scroll interference on mobile */
+}
+
+/* Hero section container — positions canvas behind text */
+.heroThreeContainer {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+/* Content overlay on top of canvas */
+.heroContentOverlay {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  padding-inline: var(--space-xl);
+}
+
+/* Gradient scrim — blends canvas into background at edges */
+.heroEdgeScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(9, 9, 11, 0.6) 100%
+  );
+}
+
+/* Bottom fade for hero section */
+.heroBottomFade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  height: 180px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--color-bg));
+}
+
+/* ─── Equipment Model Viewer (About page) ────────────────────────────────────── */
+
+/* Container for tab-selected 3D model */
+.equipmentModelContainer {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transform: translate3d(0, 0, 0);
+}
+
+/* ─── 3D Gallery / Museum Scene ──────────────────────────────────────────────── */
+
+/* Full-screen gallery scene container */
+.gallerySceneContainer {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--color-bg);
+  cursor: crosshair;
+}
+
+/* WASD movement instruction overlay */
+.galleryControlsHint {
+  position: absolute;
+  bottom: var(--space-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  padding: var(--space-sm) var(--space-lg);
+  background: rgba(9, 9, 11, 0.8);
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+/* Key badge in controls hint */
+.controlsKeyBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: var(--color-surface-high);
+  border: 1px solid var(--color-border-mid);
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+/* ─── WebGL Fallback ─────────────────────────────────────────────────────────── */
+
+/* Shown when WebGL is not available */
+.webglFallbackHero {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    135deg,
+    #0d0d10 0%,
+    #12100e 30%,
+    #0a0e12 70%,
+    #09090b 100%
+  );
+}
+
+.webglFallbackHero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 50%,
+    rgba(212, 165, 116, 0.08) 0%,
+    transparent 70%
+  );
+}
