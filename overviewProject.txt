@@ -1,0 +1,93 @@
+================================================================================
+LENSVERSE — PROJECT OVERVIEW
+================================================================================
+
+PROJECT NAME:   LensVerse 3D Portfolio
+TYPE:           Premium Photography Portfolio + Client Management + Scheduling
+SCOPE:          Visitor-facing public pages (admin scope separate)
+
+================================================================================
+TECH STACK
+================================================================================
+
+Frontend:   Next.js 15 (App Router) · React 19 · TypeScript
+Styling:    TailwindCSS v4 (globals only) · Custom CSS Modules
+3D/Motion:  Three.js · React Three Fiber · Drei · GSAP · Framer Motion
+State:      Zustand (booking wizard)
+Forms:      React Hook Form + Zod
+DB:         PostgreSQL · Prisma ORM
+Auth:       NextAuth v5 (admin/staff only)
+Payments:   Stripe Elements
+Email:      Resend
+Storage:    Cloudinary (images + video)
+
+================================================================================
+DESIGN TOKENS
+================================================================================
+
+Background:    #09090b (near-black)
+Accent:        #d4a574 (warm gold)
+Accent Teal:   #7ba8a8
+Text:          #f5f5f5
+Fonts:         Syne (display) · DM Sans (body) · DM Mono (mono)
+
+================================================================================
+DATABASE MODELS
+================================================================================
+
+User           — Admin/Staff accounts (role: ADMIN | STAFF)
+SiteSettings   — Global site config (contact, SEO, availability, payments)
+Portfolio      — Portfolio items (slug, category, images, featured, published)
+Testimonial    — Client testimonials (linked to Portfolio)
+Blog           — Blog posts (slug, category, tags, content, published)
+Schedule       — Availability slots (date, start/end time, status, bookingId)
+Booking        — Client bookings (7-step wizard, Stripe, status flow)
+Message        — Contact form submissions (inbox)
+ClientGallery  — Token-protected photo delivery galleries
+
+================================================================================
+VISITOR PAGES
+================================================================================
+
+/                    Homepage (Three.js hero + sections)
+/about               Photographer story, timeline, 3D equipment, team, awards
+/portfolio           Masonry portfolio grid with category filter
+/portfolio/[slug]    Portfolio detail (gallery, before/after, testimonial)
+/galleries           Interactive 3D museum (React Three Fiber, WASD walk)
+/services            Service categories + packages (tabbed)
+/pricing             Pricing comparison table + FAQ
+/booking             7-step booking wizard + Stripe payment
+/contact             Contact form + Google Map
+/blog                Blog listing with category filter
+/blog/[slug]         Blog post detail (rich text, related posts)
+/client/[token]      Private client gallery (token + optional password)
+
+================================================================================
+VISITOR API ROUTES
+================================================================================
+
+GET  /api/portfolio               All published portfolios
+GET  /api/portfolio/[slug]        Single portfolio detail
+GET  /api/portfolio/featured      Featured portfolios (homepage)
+GET  /api/blog                    All published blog posts
+GET  /api/blog/[slug]             Single blog post
+GET  /api/testimonials            All testimonials (homepage slider)
+GET  /api/schedule/availability   Available dates + slots (booking calendar)
+POST /api/booking                 Submit new booking
+POST /api/contact                 Submit contact form
+GET  /api/client/[token]          Fetch client gallery by token
+
+================================================================================
+BUILD LOG
+================================================================================
+
+[v1] Base scaffold — package.json, tsconfig, next.config.ts
+[v1] Design tokens — globals.css, animations.css, three.css, mediaQueries.css
+[v1] Prisma schema — all models (visitor + admin shared)
+[v1] Lib — prisma.ts, cloudinary.ts, stripe.ts, resend.ts, validations.ts, utils.ts
+[v1] Store — bookingStore.ts (Zustand)
+[v1] Root layout.tsx + homepage shell
+
+================================================================================
+END
+================================================================================
