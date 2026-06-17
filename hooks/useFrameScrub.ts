@@ -65,7 +65,8 @@ export function useFrameScrub({ chapterCount }: UseFrameScrubOptions) {
     const drawW   = fw * scale;
     const drawH   = fh * scale;
     const offsetX = (cw - drawW) / 2;
-    const offsetY = (ch - drawH) / 2;
+    // Shift frame down by 8% so the subject's face clears the top edge
+    const offsetY = (ch - drawH) / 100 + drawH * 0.08;
     ctx.drawImage(frameToUse, offsetX, offsetY, drawW, drawH);
   }, []);
 

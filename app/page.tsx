@@ -26,7 +26,7 @@ const storyChapters: ScrubChapter[] = [
     eyebrow:  "About Me",
     heading:  "The Person Behind The Camera",
     body:     "I'm a photographer who believes the best images come from genuine connection, not posed perfection. Over the years I've shot weddings, portraits, travel stories, and brand campaigns — but the throughline has always been the same: showing up fully present, camera or not.",
-    imageSrc: "https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=800&q=80",
+    imageSrc: "/images/story/photographer.png",
   },
   {
     layout:   "splitLeft",
