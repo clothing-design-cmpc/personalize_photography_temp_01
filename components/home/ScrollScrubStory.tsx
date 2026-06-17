@@ -100,7 +100,7 @@ function LayoutSplit({ chapter, isActive, imageOnLeft }: { chapter: ScrubChapter
             width:      "100%",
             height:     "100%",
             objectFit:  "cover",
-            objectPosition: "center top",
+            objectPosition: "top center",
             display:    "block",
           }}
         />

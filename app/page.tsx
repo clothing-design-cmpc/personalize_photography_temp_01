@@ -26,14 +26,14 @@ const storyChapters: ScrubChapter[] = [
     eyebrow:  "About Me",
     heading:  "The Person Behind The Camera",
     body:     "I'm a photographer who believes the best images come from genuine connection, not posed perfection. Over the years I've shot weddings, portraits, travel stories, and brand campaigns — but the throughline has always been the same: showing up fully present, camera or not.",
-    imageSrc: "/images/story/photographer.png",
+    imageSrc: "https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=800&q=80",
   },
   {
     layout:   "splitLeft",
     eyebrow:  "How I Work",
     heading:  "People First, Camera Second",
     body:     "Every session starts with a real conversation, not a shot list. I want to know what makes you nervous, what you're proud of, what you want this moment to mean later. The best photos happen when people forget the camera is even there.",
-    imageSrc: "/images/story/photographer.png",
+    imageSrc: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
   },
   {
     layout:  "quote",
@@ -46,7 +46,7 @@ const storyChapters: ScrubChapter[] = [
     eyebrow:  "Why I Became A Photographer",
     heading:  "It Started With Wanting To Hold Onto Things",
     body:     "I picked up a camera the first time because I was afraid of forgetting things — faces, places, the way light hit a room at a certain hour. Photography became my way of holding on.",
-    imageSrc: "/images/story/canon-r5-side.png",
+    imageSrc: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=800&q=80",
   },
   {
     layout:  "techniques",
