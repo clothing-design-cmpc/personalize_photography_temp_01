@@ -161,7 +161,7 @@ export default function TestimonialsSlider() {
                 fontStyle: "italic",
               }}
             >
-              "{activeTestimonial.quote}"
+              &ldquo;{activeTestimonial.quote}&rdquo;
             </p>
 
             <p style={{ fontWeight: 600, color: "var(--color-text)" }}>

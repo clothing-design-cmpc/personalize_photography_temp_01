@@ -140,6 +140,40 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Breathing image scale — grows then shrinks then repeats, used on story sections */
+@keyframes breathingScale {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+/* Text rise-in from below, settles, used on story sections (re-triggerable) */
+@keyframes textRiseIn {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Text drop-out upward — paired with textRiseIn when scrolling past */
+@keyframes textDropOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-32px);
+  }
+}
+
 /* ─── Utility Animation Classes ─────────────────────────────────────────────── */
 
 .animFadeIn {
@@ -156,6 +190,11 @@
 
 .animFloat {
   animation: float 4s ease-in-out infinite;
+}
+
+/* Breathing image — grows to a set size then shrinks then repeats, infinite */
+.animBreathing {
+  animation: breathingScale 6s ease-in-out infinite;
 }
 
 .animSpin {

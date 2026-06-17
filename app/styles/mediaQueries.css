@@ -132,6 +132,11 @@
     padding-left: var(--space-xl);
   }
 
+  /* Story sections stack on mobile */
+  .storySectionGrid {
+    grid-template-columns: 1fr !important;
+  }
+
   /* Gallery scene controls */
   .galleryControlsHint {
     font-size: 0.625rem;
@@ -182,6 +187,10 @@
 
   .footerGrid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .storySectionGrid {
+    grid-template-columns: 1fr !important;
   }
 }
 

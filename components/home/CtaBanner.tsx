@@ -47,7 +47,7 @@ export default function CtaBanner() {
             lineHeight: 1.1,
           }}
         >
-          Let's Create Something{" "}
+          Let&apos;s Create Something{" "}
           <span style={{ color: "var(--color-accent)" }}>Timeless</span>
         </h2>
 
@@ -59,7 +59,7 @@ export default function CtaBanner() {
             fontSize: "1.0625rem",
           }}
         >
-          Tell us about your vision and we'll bring it to life — one frame
+          Tell us about your vision and we&apos;ll bring it to life — one frame
           at a time.
         </p>
 
