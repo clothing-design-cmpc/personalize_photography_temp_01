@@ -1,45 +1,38 @@
 "use client";
 
 // LensVerse — useScrollScrubVideo
-// Apple-style scroll-scrubbed video: maps scroll progress through a tall
-// pinned section directly to the video's currentTime, so the user's scroll
-// "plays" the video frame-by-frame instead of it autoplaying on a loop.
+// Unified scroll-scrub hook: maps scroll progress through a tall pinned
+// section to video currentTime. Returns progress (0–1), active chapter
+// index, and fine-grained chapter progress (0–1 within each chapter).
 
 import { useEffect, useRef, useState } from "react";
 
 interface UseScrollScrubVideoOptions {
-  // Number of discrete chapters to break scroll progress into
   chapterCount: number;
 }
 
-// ─── useScrollScrubVideo ───────────────────────────────────────────────────
 export function useScrollScrubVideo({ chapterCount }: UseScrollScrubVideoOptions) {
-  // Attach to the tall outer wrapper — height = chapterCount * 100vh
-  const sectionRef = useRef<HTMLDivElement>(null);
-  // Attach to the <video> element that gets scrubbed
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef              = useRef<HTMLDivElement>(null);
+  const videoRef                = useRef<HTMLVideoElement>(null);
 
-  const [progress, setProgress]               = useState(0);
-  const [activeChapterIndex, setActiveChapterIndex] = useState(0);
-  const [isVideoReady, setIsVideoReady]        = useState(false);
+  const [progress, setProgress]                         = useState(0);
+  const [activeChapterIndex, setActiveChapterIndex]     = useState(0);
+  const [chapterProgress, setChapterProgress]           = useState(0);
+  const [isVideoReady, setIsVideoReady]                 = useState(false);
 
-  // Mark video as ready once metadata (duration) is loaded
+  // Mark ready once video metadata (duration) is available
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    function handleLoadedMetadata() {
-      setIsVideoReady(true);
-    }
+    function onMetadata() { setIsVideoReady(true); }
 
     if (video.readyState >= 1) {
-      // Metadata already loaded (cached)
       setIsVideoReady(true);
     } else {
-      video.addEventListener("loadedmetadata", handleLoadedMetadata);
+      video.addEventListener("loadedmetadata", onMetadata);
     }
-
-    return () => video.removeEventListener("loadedmetadata", handleLoadedMetadata);
+    return () => video.removeEventListener("loadedmetadata", onMetadata);
   }, []);
 
   useEffect(() => {
@@ -48,30 +41,32 @@ export function useScrollScrubVideo({ chapterCount }: UseScrollScrubVideoOptions
       const video   = videoRef.current;
       if (!section || !video || !isVideoReady || !video.duration) return;
 
-      const rect = section.getBoundingClientRect();
-      const sectionHeight = section.offsetHeight - window.innerHeight;
-
-      const scrolledIntoSection = -rect.top;
-      const rawProgress = sectionHeight > 0
-        ? scrolledIntoSection / sectionHeight
-        : 0;
-      const clampedProgress = Math.min(Math.max(rawProgress, 0), 1);
+      const rect              = section.getBoundingClientRect();
+      const scrollableHeight  = section.offsetHeight - window.innerHeight;
+      const scrolledIn        = -rect.top;
+      const rawProgress       = scrollableHeight > 0 ? scrolledIn / scrollableHeight : 0;
+      const clampedProgress   = Math.min(Math.max(rawProgress, 0), 1);
 
       setProgress(clampedProgress);
 
-      // Scrub the video — map progress directly to currentTime
+      // Scrub video frame-by-frame via scroll
       const targetTime = clampedProgress * video.duration;
-      // Avoid redundant seeks (helps performance on some browsers)
       if (Math.abs(video.currentTime - targetTime) > 0.01) {
         video.currentTime = targetTime;
       }
 
-      // Map progress to a discrete chapter index for text overlay
+      // Discrete chapter index
       const chapterIndex = Math.min(
         Math.floor(clampedProgress * chapterCount),
         chapterCount - 1
       );
       setActiveChapterIndex(chapterIndex);
+
+      // Progress within the current chapter (0–1)
+      const chapterSize      = 1 / chapterCount;
+      const chapterStart     = chapterIndex * chapterSize;
+      const localProgress    = (clampedProgress - chapterStart) / chapterSize;
+      setChapterProgress(Math.min(Math.max(localProgress, 0), 1));
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -79,5 +74,5 @@ export function useScrollScrubVideo({ chapterCount }: UseScrollScrubVideoOptions
     return () => window.removeEventListener("scroll", handleScroll);
   }, [chapterCount, isVideoReady]);
 
-  return { sectionRef, videoRef, progress, activeChapterIndex, isVideoReady };
+  return { sectionRef, videoRef, progress, activeChapterIndex, chapterProgress, isVideoReady };
 }
