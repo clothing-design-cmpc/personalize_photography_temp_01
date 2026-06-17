@@ -1,0 +1,154 @@
+/* ── Hero ─────────────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  height: 100dvh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.heroBackground {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1920&q=85');
+  background-size: cover;
+  background-position: center;
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 30, 51, 0.35) 0%,
+    rgba(15, 30, 51, 0.6) 60%,
+    rgba(15, 30, 51, 0.75) 100%
+  );
+  z-index: 1;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+  max-width: 860px;
+}
+
+.heroEyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-accent-gold);
+  margin-bottom: 20px;
+}
+
+.heroHeading {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 700;
+  color: var(--color-white);
+  line-height: 1.1;
+  margin-bottom: 24px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.heroHeadingAccent {
+  color: var(--color-accent-gold);
+  font-style: italic;
+}
+
+.heroSubheading {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  margin-bottom: 40px;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heroButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  padding: 16px 36px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--color-primary-navy);
+  background-color: var(--color-accent-gold);
+  border-radius: var(--border-radius-btn);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+  min-height: 44px;
+}
+
+.btnPrimary:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 32px rgba(212, 165, 116, 0.45);
+  background-color: var(--color-light-gold);
+}
+
+.btnOutline {
+  padding: 15px 36px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--color-white);
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: var(--border-radius-btn);
+  transition: transform var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+  min-height: 44px;
+}
+
+.btnOutline:hover {
+  background-color: var(--color-accent-gold);
+  border-color: var(--color-accent-gold);
+  color: var(--color-primary-navy);
+  transform: scale(1.05);
+}
+
+.scrollIndicator {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+  animation: scrollLinePulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollLinePulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.1); }
+}
+
+.scrollLabel {
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}

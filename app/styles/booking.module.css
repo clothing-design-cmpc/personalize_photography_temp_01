@@ -1,0 +1,102 @@
+/* ── Booking Widget ─────────────────────────────────────────── */
+
+.bookingSection {
+  padding: 0;
+  margin-top: -60px;
+  position: relative;
+  z-index: 10;
+}
+
+.bookingCard {
+  background: var(--color-white);
+  border-radius: 16px;
+  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.12);
+  padding: 40px 48px;
+  transition: box-shadow var(--transition-medium);
+}
+
+.bookingCard:hover {
+  box-shadow: 0 16px 64px rgba(0, 0, 0, 0.18);
+}
+
+.bookingHeading {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary-navy);
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.bookingFields {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  align-items: end;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.fieldInput {
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-text-dark);
+  background-color: var(--color-neutral-cream);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+  width: 100%;
+  min-height: 44px;
+}
+
+.fieldInput:hover {
+  background-color: #ede9e0;
+}
+
+.fieldInput:focus {
+  border-color: var(--color-accent-gold);
+  background-color: var(--color-white);
+  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.15);
+}
+
+.checkButton {
+  padding: 12px 28px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-white);
+  background-color: var(--color-primary-navy);
+  border-radius: 8px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+  white-space: nowrap;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.checkButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 24px rgba(26, 47, 79, 0.3);
+  background-color: #0f1e33;
+}
+
+.checkButtonLoading {
+  opacity: 0.8;
+  pointer-events: none;
+}

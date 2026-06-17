@@ -1,0 +1,65 @@
+/* ── AnimatedButton ─────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 32px;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: var(--border-radius-btn);
+  cursor: pointer;
+  border: 2px solid transparent;
+  text-decoration: none;
+  min-height: 48px;
+  transition: background-color 0.2s ease-out, color 0.2s ease-out,
+              border-color 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+/* Primary — gold fill */
+.primary {
+  background-color: var(--color-accent-gold);
+  color: var(--color-primary-navy);
+  border-color: var(--color-accent-gold);
+  box-shadow: var(--shadow-btn);
+}
+
+.primary:hover {
+  background-color: var(--color-light-gold);
+  border-color: var(--color-light-gold);
+}
+
+/* Secondary — navy outline */
+.secondary {
+  background-color: transparent;
+  color: var(--color-primary-navy);
+  border-color: var(--color-primary-navy);
+}
+
+.secondary:hover {
+  background-color: var(--color-primary-navy);
+  color: var(--color-white);
+}
+
+/* Ghost — text only, gold on hover */
+.ghost {
+  background-color: transparent;
+  color: var(--color-accent-gold);
+  border-color: transparent;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.ghost:hover {
+  color: var(--color-light-gold);
+}
+
+/* Disabled state */
+.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "lagoon-suite",
+    "name": "Lagoon Suite",
+    "tagline": "Where stillness meets the sea",
+    "description": "A sweeping suite perched above the lagoon with floor-to-ceiling glass walls and a private infinity plunge pool. Wakes of coral light drift through the mornings.",
+    "price": 18500,
+    "currency": "PHP",
+    "priceLabel": "per night",
+    "capacity": 2,
+    "size": 85,
+    "rating": 5,
+    "reviewCount": 142,
+    "image": "https://images.unsplash.com/photo-1582610116397-edb72f9cb1b5?w=800&q=80",
+    "features": ["Private infinity pool", "King bed", "Ocean view", "Butler service", "Rain shower"],
+    "category": "Suite"
+  },
+  {
+    "id": "forest-villa",
+    "name": "Forest Villa",
+    "tagline": "Canopy silence, luxury within",
+    "description": "Nestled among century-old trees, this villa offers a sanctuary where birdsong replaces alarm clocks. Stone floors and warm timber beams create an earthen elegance.",
+    "price": 14200,
+    "currency": "PHP",
+    "priceLabel": "per night",
+    "capacity": 4,
+    "size": 120,
+    "rating": 5,
+    "reviewCount": 98,
+    "image": "https://images.unsplash.com/photo-1518733057094-95b53143d2a7?w=800&q=80",
+    "features": ["Private garden", "2 bedrooms", "Outdoor bath", "Fireplace", "Jungle view"],
+    "category": "Villa"
+  },
+  {
+    "id": "garden-pavilion",
+    "name": "Garden Pavilion",
+    "tagline": "Bloom in your own private world",
+    "description": "Surrounded by curated tropical gardens, the Garden Pavilion opens entirely to the outdoors. Designed for couples who want space to breathe and silence to think.",
+    "price": 9800,
+    "currency": "PHP",
+    "priceLabel": "per night",
+    "capacity": 2,
+    "size": 65,
+    "rating": 5,
+    "reviewCount": 217,
+    "image": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800&q=80",
+    "features": ["Garden terrace", "Queen bed", "Outdoor shower", "Hammock deck", "Evening turn-down"],
+    "category": "Pavilion"
+  }
+]

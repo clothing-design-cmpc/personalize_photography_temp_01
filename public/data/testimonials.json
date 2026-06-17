@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Sofia Ramirez",
+    "location": "Barcelona, Spain",
+    "rating": 5,
+    "quote": "I have stayed at Aman, Six Senses, and Como. This is better. The silence is real, the service is invisible in the best way, and the food made me rethink everything I thought I knew about Filipino cuisine.",
+    "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80",
+    "stayType": "Lagoon Suite · 7 nights"
+  },
+  {
+    "id": 2,
+    "name": "James Whitmore",
+    "location": "London, United Kingdom",
+    "rating": 5,
+    "quote": "We came for a honeymoon and left planning our return. The private lagoon dinner alone was worth the entire trip. The staff remembered our names from the first morning and never let us feel like guests — we felt like we lived there.",
+    "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80",
+    "stayType": "Forest Villa · 5 nights"
+  },
+  {
+    "id": 3,
+    "name": "Hana Nakamura",
+    "location": "Tokyo, Japan",
+    "rating": 5,
+    "quote": "The morning yoga on the cliff terrace at sunrise is something I will carry with me for the rest of my life. Clean, unhurried, genuine. The most restorative four days I have ever spent.",
+    "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80",
+    "stayType": "Garden Pavilion · 4 nights"
+  },
+  {
+    "id": 4,
+    "name": "Marcus Osei",
+    "location": "Accra, Ghana",
+    "rating": 5,
+    "quote": "Every detail has been thought through — the way the villa opens at dawn, the temperature of the outdoor bath at night, the books in the library chosen specifically for the setting. This is what hospitality means.",
+    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
+    "stayType": "Forest Villa · 8 nights"
+  }
+]

@@ -1,0 +1,174 @@
+/* ── Header ─────────────────────────────────────────────────── */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color var(--transition-medium), box-shadow var(--transition-medium), padding var(--transition-medium);
+}
+
+.headerScrolled {
+  background-color: rgba(245, 241, 232, 0.97);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.08);
+  padding: 14px 32px;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-white);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.logoScrolled {
+  color: var(--color-primary-navy);
+}
+
+.logo:hover {
+  transform: scale(1.04) rotate(-1deg);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navLink {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.9);
+  transition: color var(--transition-fast);
+  position: relative;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-accent-gold);
+  transition: width var(--transition-medium);
+}
+
+.navLink:hover {
+  color: var(--color-accent-gold);
+}
+
+.navLink:hover::after {
+  width: 100%;
+}
+
+.navLinkScrolled {
+  color: var(--color-primary-navy);
+}
+
+.navLinkScrolled:hover {
+  color: var(--color-accent-gold);
+}
+
+.ctaButton {
+  padding: 10px 22px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--color-primary-navy);
+  background-color: var(--color-accent-gold);
+  border-radius: var(--border-radius-btn);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+
+.ctaButton:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-btn);
+  background-color: var(--color-light-gold);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.hamburgerBar {
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-white);
+  border-radius: 2px;
+  transition: transform var(--transition-fast), opacity var(--transition-fast), background-color var(--transition-fast);
+}
+
+.hamburgerBarScrolled {
+  background-color: var(--color-primary-navy);
+}
+
+.hamburgerOpen .hamburgerBar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburgerOpen .hamburgerBar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburgerOpen .hamburgerBar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100dvh;
+  background-color: var(--color-primary-navy);
+  z-index: 999;
+  padding: 80px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobileNavLink {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: color var(--transition-fast);
+}
+
+.mobileNavLink:hover {
+  color: var(--color-accent-gold);
+}
+
+.mobileCtaButton {
+  margin-top: 24px;
+  padding: 14px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary-navy);
+  background-color: var(--color-accent-gold);
+  border-radius: var(--border-radius-btn);
+  text-align: center;
+}
+
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+}

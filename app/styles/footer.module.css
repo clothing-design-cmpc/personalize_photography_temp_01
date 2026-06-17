@@ -1,0 +1,130 @@
+/* ── Footer ─────────────────────────────────────────────────── */
+
+.footer {
+  background-color: var(--color-dark-navy);
+  padding: 80px 0 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.footerBg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=1920&q=40');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  opacity: 0.06;
+}
+
+.footerContent {
+  position: relative;
+  z-index: 2;
+}
+
+.topRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 64px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 40px;
+}
+
+.brandColumn {}
+
+.footerLogo {
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  font-weight: 700;
+  color: var(--color-white);
+  margin-bottom: 16px;
+}
+
+.footerTagline {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 260px;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 12px;
+}
+
+.socialIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.socialIcon:hover {
+  color: var(--color-accent-gold);
+  border-color: var(--color-accent-gold);
+  transform: scale(1.1);
+}
+
+.linkColumn {}
+
+.linkColumnTitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent-gold);
+  margin-bottom: 20px;
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+
+.linkItem a {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color var(--transition-fast);
+}
+
+.linkItem a:hover {
+  color: var(--color-white);
+}
+
+.bottomRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.copyright {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.legalLinks {
+  display: flex;
+  gap: 24px;
+}
+
+.legalLink {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.35);
+  transition: color var(--transition-fast);
+}
+
+.legalLink:hover {
+  color: rgba(255, 255, 255, 0.7);
+}

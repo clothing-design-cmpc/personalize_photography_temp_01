@@ -1,0 +1,14 @@
+[
+  { "id": "pool",      "name": "Infinity Pool",      "icon": "Waves",        "description": "Horizon-edge pool overlooking the lagoon" },
+  { "id": "spa",       "name": "Spa & Wellness",     "icon": "Sparkles",     "description": "Full-service spa with traditional Filipino treatments" },
+  { "id": "dining",    "name": "Fine Dining",        "icon": "UtensilsCrossed", "description": "Farm-to-table cuisine and cellar-selected wines" },
+  { "id": "kayak",     "name": "Water Sports",       "icon": "Sailboat",     "description": "Kayaking, paddleboarding, and snorkel excursions" },
+  { "id": "yoga",      "name": "Sunrise Yoga",       "icon": "Sun",          "description": "Daily sessions on the clifftop terrace" },
+  { "id": "firepit",   "name": "Lakeside Firepit",   "icon": "Flame",        "description": "Evening gatherings with s'mores and stargazing" },
+  { "id": "gym",       "name": "Fitness Studio",     "icon": "Dumbbell",     "description": "Open-air gym with panoramic views" },
+  { "id": "library",   "name": "Garden Library",     "icon": "BookOpen",     "description": "Curated collection in a botanical setting" },
+  { "id": "concierge", "name": "24/7 Concierge",     "icon": "BellRing",     "description": "Personal butler available at all hours" },
+  { "id": "transfers", "name": "Private Transfers",  "icon": "Car",          "description": "Door-to-door travel in air-conditioned comfort" },
+  { "id": "cycling",   "name": "Island Cycling",     "icon": "Bike",         "description": "Guided bicycle tours of the surrounding area" },
+  { "id": "cinema",    "name": "Open Air Cinema",    "icon": "Film",         "description": "Nightly screenings under the stars" }
+]

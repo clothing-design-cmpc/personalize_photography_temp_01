@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "question": "What is the minimum stay requirement?",
+    "answer": "We require a minimum stay of 2 nights for all accommodations. During peak season (December–February and Holy Week), a 3-night minimum applies. Private villa bookings require a minimum of 3 nights year-round."
+  },
+  {
+    "id": 2,
+    "question": "How do we get to the resort?",
+    "answer": "We offer private transfers from Manila, Cebu, and all major regional airports. Our concierge team will coordinate your full journey — from air ticket advice to door-to-door pickup. Travel time from Manila (by air to the nearest airport, then boat) is approximately 3–4 hours. Please contact us before booking to plan your arrival."
+  },
+  {
+    "id": 3,
+    "question": "Is the resort suitable for children?",
+    "answer": "Our resort is designed as a sanctuary for adults and couples seeking tranquility. We warmly welcome children aged 12 and above. Infants and young children are not accommodated to ensure the serene atmosphere our guests come for."
+  },
+  {
+    "id": 4,
+    "question": "What is included in the room rate?",
+    "answer": "All rates include daily breakfast, afternoon welcome amenity, evening turndown service, non-motorized water sports, and access to all resort facilities including the infinity pool, fitness studio, and garden library. Spa services, dining, excursions, and private transfers are charged separately."
+  },
+  {
+    "id": 5,
+    "question": "What is your cancellation policy?",
+    "answer": "Reservations may be cancelled free of charge up to 14 days before arrival for a full refund. Cancellations within 14 days are non-refundable. We recommend travel insurance for all guests. In the event of a typhoon or force majeure affecting travel, we reschedule without penalty."
+  },
+  {
+    "id": 6,
+    "question": "Can the resort host private events or weddings?",
+    "answer": "Yes. We host intimate weddings, vow renewals, corporate retreats, and private gatherings for up to 30 guests. Full buyout of the resort is available for events requiring complete privacy. Contact our events team to begin planning."
+  }
+]

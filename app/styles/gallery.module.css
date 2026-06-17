@@ -1,0 +1,140 @@
+/* ── Gallery Grid ───────────────────────────────────────────── */
+
+.section {
+  padding: 100px 0;
+  background-color: var(--color-primary-navy);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 200px;
+  gap: 12px;
+}
+
+.gridItem {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.gridItem:nth-child(1),
+.gridItem:nth-child(6) {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.galleryImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease-out;
+}
+
+.gridItem:hover .galleryImage {
+  transform: scale(1.08);
+}
+
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(212, 165, 116, 0.5);
+  opacity: 0;
+  transition: opacity var(--transition-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gridItem:hover .imageOverlay {
+  opacity: 1;
+}
+
+.viewIcon {
+  font-size: 1.5rem;
+  color: var(--color-white);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  transform: translateY(8px);
+  transition: transform var(--transition-medium);
+}
+
+.gridItem:hover .viewIcon {
+  transform: translateY(0);
+}
+
+/* ── Lightbox ────────────────────────────────────────────────── */
+
+.lightboxBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.lightboxImage {
+  max-width: 90vw;
+  max-height: 85dvh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.lightboxClose {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.lightboxClose:hover {
+  color: var(--color-white);
+  border-color: var(--color-white);
+}
+
+.lightboxNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.lightboxNavPrev {
+  left: 24px;
+}
+
+.lightboxNavNext {
+  right: 24px;
+}
+
+.lightboxNav:hover {
+  color: var(--color-accent-gold);
+  border-color: var(--color-accent-gold);
+}

@@ -1,0 +1,31 @@
+{
+  "tabs": [
+    {
+      "id": "wellness",
+      "label": "Wellness",
+      "services": [
+        { "id": "hilot",   "name": "Hilot Massage",     "icon": "Leaf",       "description": "Traditional Filipino healing massage using warm coconut oil and banana leaves. A 90-minute ritual that restores the body and quiets the mind.", "duration": "90 min" },
+        { "id": "stone",   "name": "Hot Stone Therapy", "icon": "CircleDot",  "description": "Volcanic stones heated to 55°C release deep muscle tension while grounding the nervous system. Paired with aromatherapy.", "duration": "75 min" },
+        { "id": "facial",  "name": "Botanical Facial",  "icon": "Flower2",    "description": "A curative treatment using locally sourced aloe vera, papaya enzymes, and volcanic clay to restore skin radiance.", "duration": "60 min" }
+      ]
+    },
+    {
+      "id": "dining",
+      "label": "Dining",
+      "services": [
+        { "id": "private-dinner", "name": "Private Lagoon Dinner",  "icon": "Candle",      "description": "A candlelit table set on the water's edge. Personal chef, sommelier, and a menu crafted for you the same morning.", "duration": "2–3 hours" },
+        { "id": "cooking",        "name": "Culinary Experience",    "icon": "ChefHat",     "description": "Forage local ingredients with our head chef, then cook traditional Philippine dishes in the resort's open kitchen.", "duration": "3 hours" },
+        { "id": "wine",           "name": "Wine & Tapas Evening",   "icon": "GlassWater",  "description": "Curated pairings from our 400-label cellar, served on the terrace as the sun sets over the water.", "duration": "2 hours" }
+      ]
+    },
+    {
+      "id": "adventures",
+      "label": "Adventures",
+      "services": [
+        { "id": "island",    "name": "Private Island Hop", "icon": "Anchor",    "description": "A chartered bangka boat takes you to three uninhabited islands. Packed lunch, snorkel gear, and a guide included.", "duration": "Full day" },
+        { "id": "waterfall", "name": "Waterfall Trek",     "icon": "Mountain",  "description": "Guided 4-hour hike through jungle trails to a hidden twin waterfall. Swim in crystal pools fed by mountain springs.", "duration": "4 hours" },
+        { "id": "diving",    "name": "Reef Diving",        "icon": "Fish",      "description": "PADI-certified instructors lead dives to pristine coral reefs 15 minutes offshore. Beginners welcome.", "duration": "3 hours" }
+      ]
+    }
+  ]
+}
