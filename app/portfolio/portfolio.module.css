@@ -1,0 +1,285 @@
+/* portfolio.module.css — LensVerse Portfolio Page */
+
+.portfolioPage {
+  min-height: 100vh;
+  background: var(--color-bg);
+  padding: 8rem var(--space-xl) var(--space-3xl);
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.header {
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  line-height: 1.05;
+  margin: var(--space-md) 0 var(--space-lg);
+}
+
+.subheading {
+  font-size: 1.0625rem;
+  color: var(--color-text-muted);
+  max-width: 48ch;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ── Category description ────────────────────────────────────────────────── */
+.categoryInfo {
+  max-width: 680px;
+  margin: 0 auto var(--space-2xl);
+  text-align: center;
+  padding: var(--space-xl) var(--space-xl);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-surface);
+  animation: fadeInUp 0.4s ease both;
+}
+
+.categoryHeading {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  margin-bottom: var(--space-md);
+}
+
+.categoryBody {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+}
+
+/* ── Filter tabs ─────────────────────────────────────────────────────────── */
+.filters {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-2xl);
+}
+
+.filterBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  border: 1px solid var(--color-border-mid);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filterBtn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-text);
+  background: rgba(212, 165, 116, 0.06);
+}
+
+.filterBtnActive {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #09090b;
+  font-weight: 700;
+}
+
+.filterBtnActive .filterCount {
+  color: rgba(9, 9, 11, 0.6);
+}
+
+.filterCount {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.1rem 0.4rem;
+  border-radius: 9999px;
+}
+
+/* ── Photo grid ──────────────────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 280px;
+  gap: 0.75rem;
+}
+
+.gridItem {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: var(--color-surface);
+  animation: fadeInUp 0.45s ease both;
+}
+
+.gridItem:hover .gridImg {
+  transform: scale(1.05);
+}
+
+.gridItem:hover .gridOverlay {
+  opacity: 1;
+}
+
+/* Span variants */
+.tall  { grid-row: span 2; }
+.wide  { grid-column: span 2; }
+.normal { grid-column: span 1; }
+
+.gridImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.gridOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(9, 9, 11, 0.85) 0%,
+    rgba(9, 9, 11, 0.2)  40%,
+    transparent          70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-lg);
+  text-align: left;
+}
+
+.gridCategory {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.25rem;
+}
+
+.gridAlt {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.3;
+}
+
+/* ── Lightbox ─────────────────────────────────────────────────────────────── */
+.lightboxBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(9, 9, 11, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl);
+  animation: fadeIn 0.2s ease;
+  cursor: pointer;
+}
+
+.lightboxClose {
+  position: absolute;
+  top: var(--space-xl);
+  right: var(--space-xl);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border-mid);
+  color: var(--color-text);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 101;
+}
+
+.lightboxClose:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.lightboxInner {
+  max-width: 900px;
+  width: 100%;
+  cursor: default;
+  animation: scaleIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lightboxImg {
+  width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: 10px;
+  display: block;
+}
+
+.lightboxMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.lightboxAlt {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+}
+
+/* ── Animations ──────────────────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 220px;
+  }
+  .wide { grid-column: span 2; }
+}
+
+@media (max-width: 580px) {
+  .portfolioPage { padding: 6rem var(--space-md) var(--space-2xl); }
+  .grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 240px;
+  }
+  .tall, .wide { grid-column: span 1; grid-row: span 1; }
+}
