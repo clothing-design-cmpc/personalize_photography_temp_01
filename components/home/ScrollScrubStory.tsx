@@ -10,11 +10,12 @@ import Link from "next/link";
 import { useFrameScrub } from "@/hooks/useFrameScrub";
 
 export interface ScrubChapter {
-  eyebrow:  string;
-  heading:  string;
-  body:     string;
-  layout:   "hero" | "splitLeft" | "splitRight" | "quote" | "techniques" | "gadgets" | "contact";
-  extra?:   ReactNode;
+  eyebrow:   string;
+  heading:   string;
+  body:      string;
+  layout:    "hero" | "splitLeft" | "splitRight" | "quote" | "techniques" | "gadgets" | "contact";
+  imageSrc?: string;
+  extra?:    ReactNode;
 }
 
 interface ScrollScrubStoryProps {
@@ -83,18 +84,27 @@ function LayoutSplit({ chapter, isActive, imageOnLeft }: { chapter: ScrubChapter
         borderRadius: 16,
         overflow:     "hidden",
         border:       "1px solid var(--color-border-mid)",
-        background:   "linear-gradient(135deg, rgba(212,165,116,0.15) 0%, rgba(123,168,168,0.08) 100%)",
+        background:   "linear-gradient(135deg, rgba(212,165,116,0.12) 0%, rgba(9,9,11,1) 100%)",
         opacity:      isActive ? 1 : 0,
         transform:    isActive ? "scale(1)" : "scale(0.95)",
         transition:   "opacity 0.7s ease 0.1s, transform 0.7s cubic-bezier(0.22,1,0.36,1) 0.1s",
-        display:      "flex",
-        alignItems:   "center",
-        justifyContent: "center",
+        position:     "relative",
       }}
     >
-      <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6875rem", letterSpacing: "0.12em", textTransform: "uppercase" as const, color: "rgba(255,255,255,0.2)" }}>
-        Photo
-      </span>
+      {chapter.imageSrc && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={chapter.imageSrc}
+          alt={chapter.heading}
+          style={{
+            width:      "100%",
+            height:     "100%",
+            objectFit:  "cover",
+            objectPosition: "center top",
+            display:    "block",
+          }}
+        />
+      )}
     </div>
   );
 
@@ -229,7 +239,12 @@ function LayoutTechniques({ chapter, isActive }: { chapter: ScrubChapter; isActi
 }
 
 function LayoutGadgets({ chapter, isActive }: { chapter: ScrubChapter; isActive: boolean }) {
-  const gearList = ["Canon EOS R5 Mark II", "RF 24-70mm f/2.8L", "RF 50mm f/1.2L", "RF 85mm f/1.2L", "Profoto B10 Plus", "DJI RS 3 Pro Gimbal"];
+  const gear = [
+    { label: "Canon EOS R5",       img: "/images/story/canon-r5-front.png" },
+    { label: "RF 24-70mm f/2.8L",  img: "/images/story/canon-r5-top.png"  },
+    { label: "Canon EOS Side",     img: "/images/story/canon-r5-side.png"  },
+    { label: "iPhone 13 Pro",      img: "/images/story/iphone-back.png"    },
+  ];
 
   return (
     <div
@@ -239,7 +254,7 @@ function LayoutGadgets({ chapter, isActive }: { chapter: ScrubChapter; isActive:
         alignItems:     "center",
         padding:        "0 var(--space-xl)",
         width:          "100%",
-        maxWidth:       860,
+        maxWidth:       900,
         opacity:        isActive ? 1 : 0,
         transform:      isActive ? "translateY(0)" : "translateY(28px)",
         transition:     "opacity 0.6s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1)",
@@ -255,25 +270,34 @@ function LayoutGadgets({ chapter, isActive }: { chapter: ScrubChapter; isActive:
       <p style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: "var(--color-text-muted)", maxWidth: "52ch", textAlign: "center", marginBottom: "var(--space-2xl)" }}>
         {chapter.body}
       </p>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-sm)", justifyContent: "center" }}>
-        {gearList.map((item, index) => (
-          <span
-            key={item}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--space-md)", width: "100%" }}>
+        {gear.map((item, index) => (
+          <div
+            key={item.label}
             style={{
-              padding:    "0.625rem 1.25rem",
-              borderRadius: 9999,
-              border:     "1px solid var(--color-border-mid)",
-              background: "rgba(212,165,116,0.07)",
-              fontFamily: "var(--font-mono)",
-              fontSize:   "0.8125rem",
-              color:      "var(--color-text)",
-              opacity:    isActive ? 1 : 0,
-              transform:  isActive ? "scale(1)" : "scale(0.85)",
-              transition: `opacity 0.4s ease ${0.05 * index}s, transform 0.4s cubic-bezier(0.22,1,0.36,1) ${0.05 * index}s`,
+              borderRadius:  12,
+              overflow:      "hidden",
+              border:        "1px solid var(--color-border)",
+              background:    "rgba(255,255,255,0.03)",
+              opacity:       isActive ? 1 : 0,
+              transform:     isActive ? "translateY(0)" : "translateY(20px)",
+              transition:    `opacity 0.5s ease ${0.07 * index}s, transform 0.5s cubic-bezier(0.22,1,0.36,1) ${0.07 * index}s`,
             }}
           >
-            {item}
-          </span>
+            <div style={{ aspectRatio: "1/1", overflow: "hidden", background: "#111" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={item.img}
+                alt={item.label}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </div>
+            <div style={{ padding: "0.75rem", textAlign: "center" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--color-text-muted)", letterSpacing: "0.04em" }}>
+                {item.label}
+              </span>
+            </div>
+          </div>
         ))}
       </div>
     </div>
