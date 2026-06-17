@@ -1,14 +1,13 @@
 "use client";
 
 // LensVerse — ScrollScrubStory
-// One pinned video scrubbed by scroll, hero → all story chapters.
-// Each chapter has its own layout variant: centered-hero, split-left,
-// split-right, quote-cinematic, grid-techniques, chips-gadgets, cta-contact.
-// The video stays fixed behind everything — iisa lang ang background.
+// Frame-sequence scrubber: 192 WebP frames drawn on canvas, scrubbed by scroll.
+// One pinned canvas background from Hero through all 8 chapters.
+// Each chapter has its own distinct layout variant.
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { useScrollScrubVideo } from "@/hooks/useScrollScrubVideo";
+import { useFrameScrub } from "@/hooks/useFrameScrub";
 
 export interface ScrubChapter {
   eyebrow:  string;
@@ -19,8 +18,7 @@ export interface ScrubChapter {
 }
 
 interface ScrollScrubStoryProps {
-  videoSrcWebm: string;
-  chapters:     ScrubChapter[];
+  chapters: ScrubChapter[];
 }
 
 // ─── Chapter layout renderers ──────────────────────────────────────────────
@@ -59,23 +57,13 @@ function LayoutHero({ chapter, isActive }: { chapter: ScrubChapter; isActive: bo
           maxWidth:      "14ch",
         }}
       >
-        {chapter.heading.split(" ").map((word, i) =>
-          i === chapter.heading.split(" ").length - 1 ? (
-            <span key={i} style={{ color: "var(--color-accent)" }}> {word}</span>
-          ) : (
-            <span key={i}>{word} </span>
-          )
+        {chapter.heading.split(" ").map((word, i, arr) =>
+          i === arr.length - 1
+            ? <span key={i} style={{ color: "var(--color-accent)" }}> {word}</span>
+            : <span key={i}>{word} </span>
         )}
       </h1>
-      <p
-        style={{
-          fontSize:     "clamp(1rem, 2vw, 1.25rem)",
-          lineHeight:   1.7,
-          color:        "var(--color-text-muted)",
-          maxWidth:     "44ch",
-          marginBottom: "var(--space-2xl)",
-        }}
-      >
+      <p style={{ fontSize: "clamp(1rem, 2vw, 1.25rem)", lineHeight: 1.7, color: "var(--color-text-muted)", maxWidth: "44ch", marginBottom: "var(--space-2xl)" }}>
         {chapter.body}
       </p>
       <div style={{ display: "flex", gap: "var(--space-md)", flexWrap: "wrap", justifyContent: "center" }}>
@@ -86,15 +74,7 @@ function LayoutHero({ chapter, isActive }: { chapter: ScrubChapter; isActive: bo
   );
 }
 
-function LayoutSplit({
-  chapter,
-  isActive,
-  imageOnLeft,
-}: {
-  chapter:    ScrubChapter;
-  isActive:   boolean;
-  imageOnLeft: boolean;
-}) {
+function LayoutSplit({ chapter, isActive, imageOnLeft }: { chapter: ScrubChapter; isActive: boolean; imageOnLeft: boolean }) {
   const imagePlaceholder = (
     <div
       style={{
@@ -112,15 +92,7 @@ function LayoutSplit({
         justifyContent: "center",
       }}
     >
-      <span
-        style={{
-          fontFamily:    "var(--font-mono)",
-          fontSize:      "0.6875rem",
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-          color:         "rgba(255,255,255,0.2)",
-        }}
-      >
+      <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6875rem", letterSpacing: "0.12em", textTransform: "uppercase" as const, color: "rgba(255,255,255,0.2)" }}>
         Photo
       </span>
     </div>
@@ -134,20 +106,8 @@ function LayoutSplit({
         transition:"opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1)",
       }}
     >
-      <p className="eyebrow" style={{ marginBottom: "var(--space-md)" }}>
-        {chapter.eyebrow}
-      </p>
-      <h2
-        style={{
-          fontFamily:    "var(--font-display)",
-          fontSize:      "clamp(1.75rem, 3.5vw, 2.75rem)",
-          fontWeight:    800,
-          letterSpacing: "-0.02em",
-          color:         "var(--color-text)",
-          marginBottom:  "var(--space-lg)",
-          lineHeight:    1.15,
-        }}
-      >
+      <p className="eyebrow" style={{ marginBottom: "var(--space-md)" }}>{chapter.eyebrow}</p>
+      <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 800, letterSpacing: "-0.02em", color: "var(--color-text)", marginBottom: "var(--space-lg)", lineHeight: 1.15 }}>
         {chapter.heading}
       </h2>
       <p style={{ fontSize: "1.0625rem", lineHeight: 1.75, color: "var(--color-text-muted)", maxWidth: "46ch" }}>
@@ -160,18 +120,18 @@ function LayoutSplit({
   return (
     <div
       style={{
-        display:       "grid",
+        display:             "grid",
         gridTemplateColumns: "1fr 1fr",
-        gap:           "var(--space-2xl)",
-        alignItems:    "center",
-        width:         "100%",
-        maxWidth:      "var(--max-width-content)",
-        padding:       "0 var(--space-xl)",
-        opacity:       isActive ? 1 : 0,
-        transition:    "opacity 0.4s ease",
-        pointerEvents: isActive ? "auto" : "none",
-        position:      isActive ? "relative" : "absolute",
-        inset:         0,
+        gap:                 "var(--space-2xl)",
+        alignItems:          "center",
+        width:               "100%",
+        maxWidth:            "var(--max-width-content)",
+        padding:             "0 var(--space-xl)",
+        opacity:             isActive ? 1 : 0,
+        transition:          "opacity 0.4s ease",
+        pointerEvents:       isActive ? "auto" : "none",
+        position:            isActive ? "relative" : "absolute",
+        inset:               0,
       }}
     >
       {imageOnLeft ? imagePlaceholder : textBlock}
@@ -199,30 +159,9 @@ function LayoutQuote({ chapter, isActive }: { chapter: ScrubChapter; isActive: b
         inset:          0,
       }}
     >
-      <div
-        style={{
-          width:        48,
-          height:       3,
-          background:   "var(--color-accent)",
-          borderRadius: 9999,
-          marginBottom: "var(--space-xl)",
-        }}
-      />
-      <p className="eyebrow" style={{ marginBottom: "var(--space-lg)" }}>
-        {chapter.eyebrow}
-      </p>
-      <h2
-        style={{
-          fontFamily:    "var(--font-display)",
-          fontSize:      "clamp(1.875rem, 4.5vw, 3.5rem)",
-          fontWeight:    800,
-          letterSpacing: "-0.03em",
-          color:         "var(--color-text)",
-          lineHeight:    1.1,
-          marginBottom:  "var(--space-xl)",
-          fontStyle:     "italic",
-        }}
-      >
+      <div style={{ width: 48, height: 3, background: "var(--color-accent)", borderRadius: 9999, marginBottom: "var(--space-xl)" }} />
+      <p className="eyebrow" style={{ marginBottom: "var(--space-lg)" }}>{chapter.eyebrow}</p>
+      <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.875rem, 4.5vw, 3.5rem)", fontWeight: 800, letterSpacing: "-0.03em", color: "var(--color-text)", lineHeight: 1.1, marginBottom: "var(--space-xl)", fontStyle: "italic" }}>
         "{chapter.heading}"
       </h2>
       <p style={{ fontSize: "1.125rem", lineHeight: 1.75, color: "var(--color-text-muted)", maxWidth: "52ch" }}>
@@ -234,10 +173,10 @@ function LayoutQuote({ chapter, isActive }: { chapter: ScrubChapter; isActive: b
 
 function LayoutTechniques({ chapter, isActive }: { chapter: ScrubChapter; isActive: boolean }) {
   const techniques = [
-    { icon: "☀",  label: "Natural Light",    desc: "Honest, uncontrolled, beautiful" },
-    { icon: "⏱",  label: "Long Sessions",    desc: "Unhurried, never rushed" },
-    { icon: "👁",  label: "Candid First",     desc: "Moments over poses" },
-    { icon: "🎞",  label: "Film Mindset",     desc: "Each frame has purpose" },
+    { icon: "☀",  label: "Natural Light",  desc: "Honest, uncontrolled, beautiful" },
+    { icon: "⏱",  label: "Long Sessions",  desc: "Unhurried, never rushed" },
+    { icon: "👁",  label: "Candid First",   desc: "Moments over poses" },
+    { icon: "🎞",  label: "Film Mindset",   desc: "Each frame has purpose" },
   ];
 
   return (
@@ -257,46 +196,17 @@ function LayoutTechniques({ chapter, isActive }: { chapter: ScrubChapter; isActi
         inset:          0,
       }}
     >
-      <p className="eyebrow" style={{ marginBottom: "var(--space-md)", textAlign: "center" }}>
-        {chapter.eyebrow}
-      </p>
-      <h2
-        style={{
-          fontFamily:    "var(--font-display)",
-          fontSize:      "clamp(1.75rem, 3.5vw, 2.75rem)",
-          fontWeight:    800,
-          letterSpacing: "-0.02em",
-          color:         "var(--color-text)",
-          marginBottom:  "var(--space-lg)",
-          textAlign:     "center",
-          lineHeight:    1.2,
-        }}
-      >
+      <p className="eyebrow" style={{ marginBottom: "var(--space-md)", textAlign: "center" }}>{chapter.eyebrow}</p>
+      <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 800, letterSpacing: "-0.02em", color: "var(--color-text)", marginBottom: "var(--space-lg)", textAlign: "center", lineHeight: 1.2 }}>
         {chapter.heading}
       </h2>
-      <p
-        style={{
-          fontSize:     "1.0625rem",
-          lineHeight:   1.7,
-          color:        "var(--color-text-muted)",
-          maxWidth:     "52ch",
-          textAlign:    "center",
-          marginBottom: "var(--space-2xl)",
-        }}
-      >
+      <p style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: "var(--color-text-muted)", maxWidth: "52ch", textAlign: "center", marginBottom: "var(--space-2xl)" }}>
         {chapter.body}
       </p>
-      <div
-        style={{
-          display:             "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap:                 "var(--space-md)",
-          width:               "100%",
-        }}
-      >
-        {techniques.map((technique, index) => (
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--space-md)", width: "100%" }}>
+        {techniques.map((t, index) => (
           <div
-            key={technique.label}
+            key={t.label}
             style={{
               background:   "rgba(255,255,255,0.04)",
               border:       "1px solid var(--color-border)",
@@ -308,21 +218,9 @@ function LayoutTechniques({ chapter, isActive }: { chapter: ScrubChapter; isActi
               transition:   `opacity 0.5s ease ${0.1 + index * 0.08}s, transform 0.5s cubic-bezier(0.22,1,0.36,1) ${0.1 + index * 0.08}s`,
             }}
           >
-            <div style={{ fontSize: "1.75rem", marginBottom: "var(--space-sm)" }}>{technique.icon}</div>
-            <div
-              style={{
-                fontFamily:    "var(--font-display)",
-                fontWeight:    700,
-                fontSize:      "0.9375rem",
-                color:         "var(--color-text)",
-                marginBottom:  "var(--space-xs)",
-              }}
-            >
-              {technique.label}
-            </div>
-            <div style={{ fontSize: "0.8125rem", color: "var(--color-text-muted)", lineHeight: 1.5 }}>
-              {technique.desc}
-            </div>
+            <div style={{ fontSize: "1.75rem", marginBottom: "var(--space-sm)" }}>{t.icon}</div>
+            <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "0.9375rem", color: "var(--color-text)", marginBottom: "var(--space-xs)" }}>{t.label}</div>
+            <div style={{ fontSize: "0.8125rem", color: "var(--color-text-muted)", lineHeight: 1.5 }}>{t.desc}</div>
           </div>
         ))}
       </div>
@@ -331,14 +229,7 @@ function LayoutTechniques({ chapter, isActive }: { chapter: ScrubChapter; isActi
 }
 
 function LayoutGadgets({ chapter, isActive }: { chapter: ScrubChapter; isActive: boolean }) {
-  const gearList = [
-    "Canon EOS R5 Mark II",
-    "RF 24-70mm f/2.8L",
-    "RF 50mm f/1.2L",
-    "RF 85mm f/1.2L",
-    "Profoto B10 Plus",
-    "DJI RS 3 Pro Gimbal",
-  ];
+  const gearList = ["Canon EOS R5 Mark II", "RF 24-70mm f/2.8L", "RF 50mm f/1.2L", "RF 85mm f/1.2L", "Profoto B10 Plus", "DJI RS 3 Pro Gimbal"];
 
   return (
     <div
@@ -357,33 +248,11 @@ function LayoutGadgets({ chapter, isActive }: { chapter: ScrubChapter; isActive:
         inset:          0,
       }}
     >
-      <p className="eyebrow" style={{ marginBottom: "var(--space-md)", textAlign: "center" }}>
-        {chapter.eyebrow}
-      </p>
-      <h2
-        style={{
-          fontFamily:    "var(--font-display)",
-          fontSize:      "clamp(1.75rem, 3.5vw, 2.75rem)",
-          fontWeight:    800,
-          letterSpacing: "-0.02em",
-          color:         "var(--color-text)",
-          marginBottom:  "var(--space-lg)",
-          textAlign:     "center",
-          lineHeight:    1.2,
-        }}
-      >
+      <p className="eyebrow" style={{ marginBottom: "var(--space-md)", textAlign: "center" }}>{chapter.eyebrow}</p>
+      <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 800, letterSpacing: "-0.02em", color: "var(--color-text)", marginBottom: "var(--space-lg)", textAlign: "center", lineHeight: 1.2 }}>
         {chapter.heading}
       </h2>
-      <p
-        style={{
-          fontSize:     "1.0625rem",
-          lineHeight:   1.7,
-          color:        "var(--color-text-muted)",
-          maxWidth:     "52ch",
-          textAlign:    "center",
-          marginBottom: "var(--space-2xl)",
-        }}
-      >
+      <p style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: "var(--color-text-muted)", maxWidth: "52ch", textAlign: "center", marginBottom: "var(--space-2xl)" }}>
         {chapter.body}
       </p>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-sm)", justifyContent: "center" }}>
@@ -391,16 +260,16 @@ function LayoutGadgets({ chapter, isActive }: { chapter: ScrubChapter; isActive:
           <span
             key={item}
             style={{
-              padding:       "0.625rem 1.25rem",
-              borderRadius:  9999,
-              border:        "1px solid var(--color-border-mid)",
-              background:    "rgba(212,165,116,0.07)",
-              fontFamily:    "var(--font-mono)",
-              fontSize:      "0.8125rem",
-              color:         "var(--color-text)",
-              opacity:       isActive ? 1 : 0,
-              transform:     isActive ? "scale(1)" : "scale(0.85)",
-              transition:    `opacity 0.4s ease ${0.05 * index}s, transform 0.4s cubic-bezier(0.22,1,0.36,1) ${0.05 * index}s`,
+              padding:    "0.625rem 1.25rem",
+              borderRadius: 9999,
+              border:     "1px solid var(--color-border-mid)",
+              background: "rgba(212,165,116,0.07)",
+              fontFamily: "var(--font-mono)",
+              fontSize:   "0.8125rem",
+              color:      "var(--color-text)",
+              opacity:    isActive ? 1 : 0,
+              transform:  isActive ? "scale(1)" : "scale(0.85)",
+              transition: `opacity 0.4s ease ${0.05 * index}s, transform 0.4s cubic-bezier(0.22,1,0.36,1) ${0.05 * index}s`,
             }}
           >
             {item}
@@ -430,47 +299,14 @@ function LayoutContact({ chapter, isActive }: { chapter: ScrubChapter; isActive:
         inset:          0,
       }}
     >
-      <div
-        style={{
-          width:         64,
-          height:        64,
-          borderRadius:  "50%",
-          border:        "1px solid var(--color-border-mid)",
-          background:    "rgba(212,165,116,0.1)",
-          display:       "flex",
-          alignItems:    "center",
-          justifyContent:"center",
-          marginBottom:  "var(--space-xl)",
-          fontSize:      "1.5rem",
-        }}
-      >
+      <div style={{ width: 64, height: 64, borderRadius: "50%", border: "1px solid var(--color-border-mid)", background: "rgba(212,165,116,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "var(--space-xl)", fontSize: "1.5rem" }}>
         📷
       </div>
-      <p className="eyebrow" style={{ marginBottom: "var(--space-md)" }}>
-        {chapter.eyebrow}
-      </p>
-      <h2
-        style={{
-          fontFamily:    "var(--font-display)",
-          fontSize:      "clamp(2rem, 4vw, 3.25rem)",
-          fontWeight:    800,
-          letterSpacing: "-0.025em",
-          color:         "var(--color-text)",
-          marginBottom:  "var(--space-lg)",
-          lineHeight:    1.1,
-        }}
-      >
+      <p className="eyebrow" style={{ marginBottom: "var(--space-md)" }}>{chapter.eyebrow}</p>
+      <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2rem, 4vw, 3.25rem)", fontWeight: 800, letterSpacing: "-0.025em", color: "var(--color-text)", marginBottom: "var(--space-lg)", lineHeight: 1.1 }}>
         {chapter.heading}
       </h2>
-      <p
-        style={{
-          fontSize:     "1.0625rem",
-          lineHeight:   1.75,
-          color:        "var(--color-text-muted)",
-          maxWidth:     "44ch",
-          marginBottom: "var(--space-2xl)",
-        }}
-      >
+      <p style={{ fontSize: "1.0625rem", lineHeight: 1.75, color: "var(--color-text-muted)", maxWidth: "44ch", marginBottom: "var(--space-2xl)" }}>
         {chapter.body}
       </p>
       <div style={{ display: "flex", gap: "var(--space-md)", flexWrap: "wrap", justifyContent: "center" }}>
@@ -481,31 +317,31 @@ function LayoutContact({ chapter, isActive }: { chapter: ScrubChapter; isActive:
   );
 }
 
-// ─── Chapter renderer dispatch ────────────────────────────────────────────
 function ChapterPanel({ chapter, isActive }: { chapter: ScrubChapter; isActive: boolean }) {
   switch (chapter.layout) {
-    case "hero":        return <LayoutHero       chapter={chapter} isActive={isActive} />;
-    case "splitLeft":   return <LayoutSplit      chapter={chapter} isActive={isActive} imageOnLeft />;
-    case "splitRight":  return <LayoutSplit      chapter={chapter} isActive={isActive} imageOnLeft={false} />;
-    case "quote":       return <LayoutQuote      chapter={chapter} isActive={isActive} />;
-    case "techniques":  return <LayoutTechniques chapter={chapter} isActive={isActive} />;
-    case "gadgets":     return <LayoutGadgets    chapter={chapter} isActive={isActive} />;
-    case "contact":     return <LayoutContact    chapter={chapter} isActive={isActive} />;
-    default:            return null;
+    case "hero":       return <LayoutHero       chapter={chapter} isActive={isActive} />;
+    case "splitLeft":  return <LayoutSplit      chapter={chapter} isActive={isActive} imageOnLeft />;
+    case "splitRight": return <LayoutSplit      chapter={chapter} isActive={isActive} imageOnLeft={false} />;
+    case "quote":      return <LayoutQuote      chapter={chapter} isActive={isActive} />;
+    case "techniques": return <LayoutTechniques chapter={chapter} isActive={isActive} />;
+    case "gadgets":    return <LayoutGadgets    chapter={chapter} isActive={isActive} />;
+    case "contact":    return <LayoutContact    chapter={chapter} isActive={isActive} />;
+    default:           return null;
   }
 }
 
 // ─── ScrollScrubStory ──────────────────────────────────────────────────────
-export default function ScrollScrubStory({ videoSrcWebm, chapters }: ScrollScrubStoryProps) {
-  const { sectionRef, videoRef, activeChapterIndex, isVideoReady } =
-    useScrollScrubVideo({ chapterCount: chapters.length });
+export default function ScrollScrubStory({ chapters }: ScrollScrubStoryProps) {
+  const { sentinelRef, canvasRef, activeChapterIndex, loadProgress, isReady } =
+    useFrameScrub({ chapterCount: chapters.length });
 
   return (
+    // Sentinel: holds chapters.length * 100vh of scroll budget
     <div
-      ref={sectionRef}
+      ref={sentinelRef}
       style={{ position: "relative", height: `${chapters.length * 100}vh` }}
     >
-      {/* Sticky pinned layer — video + text overlay */}
+      {/* Sticky pinned layer — canvas + text overlays */}
       <div
         style={{
           position:       "sticky",
@@ -518,52 +354,75 @@ export default function ScrollScrubStory({ videoSrcWebm, chapters }: ScrollScrub
           background:     "var(--color-bg)",
         }}
       >
-        {/* Scroll-scrubbed background video */}
-        <video
-          ref={videoRef}
-          muted
-          playsInline
-          preload="auto"
+        {/* Frame canvas — full bleed */}
+        <canvas
+          ref={canvasRef}
+          aria-hidden="true"
+          style={{
+            position:  "absolute",
+            inset:     0,
+            width:     "100%",
+            height:    "100%",
+            display:   "block",
+            opacity:   isReady ? 1 : 0,
+            transition:"opacity 0.4s ease",
+            willChange:"contents",
+          }}
+        />
+
+        {/* Preload progress bar */}
+        <div
+          aria-hidden="true"
           style={{
             position:   "absolute",
-            inset:      0,
-            width:      "100%",
-            height:     "100%",
-            objectFit:  "cover",
-            opacity:    isVideoReady ? 1 : 0,
-            transition: "opacity 0.4s ease",
+            bottom:     0,
+            left:       0,
+            right:      0,
+            height:     2,
+            zIndex:     10,
+            background: "rgba(255,255,255,0.08)",
+            opacity:    loadProgress >= 1 ? 0 : 1,
+            transition: "opacity 0.6s ease",
+            pointerEvents: "none",
           }}
         >
-          <source src={videoSrcWebm} type="video/webm" />
-        </video>
-
-        {/* Loading fallback */}
-        {!isVideoReady && (
           <div
+            style={{
+              height:     "100%",
+              width:      `${loadProgress * 100}%`,
+              background: "rgba(212,165,116,0.7)",
+              transition: "width 0.15s linear",
+            }}
+          />
+        </div>
+
+        {/* Loading placeholder before first batch */}
+        {!isReady && (
+          <div
+            aria-hidden="true"
             style={{
               position:   "absolute",
               inset:      0,
-              background: "linear-gradient(135deg, rgba(212,165,116,0.08) 0%, rgba(9,9,11,1) 60%)",
+              background: "linear-gradient(135deg, rgba(212,165,116,0.06) 0%, rgba(9,9,11,1) 60%)",
             }}
           />
         )}
 
-        {/* Scrim — varies per chapter layout */}
+        {/* Scrim */}
         <div
           aria-hidden="true"
           style={{
             position:   "absolute",
             inset:      0,
             background: activeChapterIndex === 0
-              // Hero — lighter scrim so video breathes
               ? "linear-gradient(180deg, rgba(9,9,11,0.50) 0%, rgba(9,9,11,0.30) 40%, rgba(9,9,11,0.80) 100%)"
-              // Other chapters — heavier scrim for text legibility
               : "linear-gradient(180deg, rgba(9,9,11,0.70) 0%, rgba(9,9,11,0.60) 50%, rgba(9,9,11,0.90) 100%)",
             transition: "background 0.6s ease",
+            zIndex:     1,
           }}
         />
 
-        {/* Chapter panels — each has its own layout, all positioned in the same space */}
+        {/* Chapter panels */}
         <div
           style={{
             position:       "relative",
@@ -583,7 +442,7 @@ export default function ScrollScrubStory({ videoSrcWebm, chapters }: ScrollScrub
           ))}
         </div>
 
-        {/* Chapter progress dots */}
+        {/* Progress dots */}
         <div
           aria-hidden="true"
           style={{
@@ -603,16 +462,14 @@ export default function ScrollScrubStory({ videoSrcWebm, chapters }: ScrollScrub
                 width:        index === activeChapterIndex ? 24 : 8,
                 height:       8,
                 borderRadius: 9999,
-                background:   index === activeChapterIndex
-                  ? "var(--color-accent)"
-                  : "rgba(255,255,255,0.22)",
+                background:   index === activeChapterIndex ? "var(--color-accent)" : "rgba(255,255,255,0.22)",
                 transition:   "all 0.3s ease",
               }}
             />
           ))}
         </div>
 
-        {/* Scroll indicator — only on first chapter */}
+        {/* Scroll indicator — first chapter only */}
         {activeChapterIndex === 0 && (
           <div
             aria-hidden="true"
@@ -628,24 +485,10 @@ export default function ScrollScrubStory({ videoSrcWebm, chapters }: ScrollScrub
               animation:     "fadeIn 1s ease 1.2s both",
             }}
           >
-            <span
-              style={{
-                fontFamily:    "var(--font-mono)",
-                fontSize:      "0.625rem",
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                color:         "var(--color-text-muted)",
-              }}
-            >
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.625rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>
               Scroll
             </span>
-            <div
-              style={{
-                width:      1,
-                height:     40,
-                background: "linear-gradient(to bottom, rgba(212,165,116,0.6), transparent)",
-              }}
-            />
+            <div style={{ width: 1, height: 40, background: "linear-gradient(to bottom, rgba(212,165,116,0.6), transparent)" }} />
           </div>
         )}
       </div>

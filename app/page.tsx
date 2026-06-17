@@ -1,22 +1,19 @@
 // LensVerse — Homepage
-// One pinned background video scroll-scrubbed from Hero through all 7 story chapters.
-// Each chapter has a distinct layout — same video background, ibat-ibang design.
+// Frame-sequence scroll-scrubbing: 192 WebP frames on canvas, Hero → 8 chapters.
 
 import type { Metadata } from "next";
 import ScrollScrubStory, { type ScrubChapter } from "@/components/home/ScrollScrubStory";
 
 export const metadata: Metadata = {
   title: "LensVerse — Luxury Photography Portfolio",
-  description:
-    "Capturing stories beyond the lens. Luxury wedding, portrait, travel, and commercial photography.",
+  description: "Capturing stories beyond the lens. Luxury wedding, portrait, travel, and commercial photography.",
   openGraph: {
     title:       "LensVerse — Luxury Photography Portfolio",
-    description: "Capturing stories beyond the lens. Luxury wedding, portrait, travel, and commercial photography.",
+    description: "Capturing stories beyond the lens.",
     type:        "website",
   },
 };
 
-// ─── Story chapters ────────────────────────────────────────────────────────
 const storyChapters: ScrubChapter[] = [
   {
     layout:  "hero",
@@ -40,7 +37,7 @@ const storyChapters: ScrubChapter[] = [
     layout:  "quote",
     eyebrow: "Core Belief",
     heading: "A Photo Is A Promise To Remember",
-    body:    "I believe a photograph isn't just light hitting a sensor — it's a promise that this moment mattered enough to keep. That belief shapes how I shoot, how I edit, and which shots I choose to show you.",
+    body:    "I believe a photograph isn't just light hitting a sensor — it's a promise that this moment mattered enough to keep.",
   },
   {
     layout:  "splitRight",
@@ -68,12 +65,6 @@ const storyChapters: ScrubChapter[] = [
   },
 ];
 
-// ─── Home ──────────────────────────────────────────────────────────────────
 export default function Home() {
-  return (
-    <ScrollScrubStory
-      videoSrcWebm="/photographer-story.webm"
-      chapters={storyChapters}
-    />
-  );
+  return <ScrollScrubStory chapters={storyChapters} />;
 }
