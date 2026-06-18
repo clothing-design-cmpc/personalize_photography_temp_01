@@ -1,213 +1,100 @@
 ================================================================================
-PROJECT OVERVIEW — Isla Serena Private Resort Website
+LENSVERSE — overviewProject.txt
+Repo:   https://github.com/clothing-design-cmpc/personalize_photography_temp_01
+Branch: develop
 ================================================================================
 
-Project Name   : Isla Serena Private Resort
-Type           : Marketing / Booking Website
-Stack          : Next.js 16.x + React 19.x + Motion 12.x + GSAP 3.15.x
-Style          : Custom CSS Modules (no Tailwind)
-Fonts          : Playfair Display (display) + Inter (body) via Google Fonts
-Deployed To    : (TBD — Vercel recommended)
-Repository     : https://github.com/clothing-design-cmpc/resort-dynamic-template
-Branch         : develop
+PROJECT TYPE:  Premium Photography Portfolio + Booking + Client Gallery
+STACK:         Next.js 16.2.9 | React 19 | TypeScript | Tailwind v4
+               Three.js + R3F + Drei | Framer Motion | GSAP | Zustand
+               Prisma ORM | PostgreSQL | NextAuth | Cloudinary | Resend | Stripe
+               React Hook Form | Zod | Radix UI
+
+SPEC FILE:     visitor-master-template-01-frontend-spec-visitor-only.txt
+PROTOCOL:      claude_operational_protocol_v34.txt
 
 ================================================================================
-TECH STACK
+BUILD STATUS
 ================================================================================
 
-Frontend       : Next.js 16.2.x (App Router, Turbopack dev server)
-Language       : JavaScript (JSX) — no TypeScript
-Animations     : Motion 12.x (formerly Framer Motion) + GSAP 3.15.x
-Scroll Hooks   : @gsap/react 2.1.x, react-intersection-observer 9.x
-Styling        : CSS Modules (one per section) + globals.css + mediaQueries.css
-Data           : Static JSON files in /public/data/
-API Routes     : Next.js App Router route handlers (/app/api/)
-Images         : next/image with Unsplash remote patterns
-Node.js        : 24.x (Active LTS) recommended
+[DONE] Foundation Layer
+  ✓ prisma/schema.prisma            — 6 models: Portfolio, Schedule, Booking,
+                                      Blog, Testimonial, Message, ClientGallery
+  ✓ app/styles/globals.css          — Design tokens + CSS reset + utility classes
+  ✓ app/styles/animations.css       — All keyframe animations + utility classes
+  ✓ app/styles/three.css            — Canvas/Three.js container styles
+  ✓ app/styles/mediaQueries.css     — All responsive breakpoints (dedicated file)
+  ✓ app/layout.tsx                  — Root layout: Header + Footer + SEO metadata
+  ✓ components/layout/Header.tsx    — Sticky nav + mobile drawer
+  ✓ components/layout/Footer.tsx    — Footer grid + social links + legal
+  ✓ lib/prisma.ts                   — Prisma singleton
+  ✓ lib/cloudinary.ts               — Cloudinary config + URL builder
+  ✓ lib/stripe.ts                   — Stripe server instance
+  ✓ lib/resend.ts                   — Resend email client
+  ✓ lib/validations.ts              — Zod schemas: booking, contact, query params
+  ✓ lib/utils.ts                    — Shared utilities
+  ✓ store/bookingStore.ts           — Zustand booking wizard state (7 steps)
+  ✓ .env.local                      — Environment variables template
+
+[NEXT] Homepage (app/page.tsx) + all home section components:
+  - components/home/HeroSection.tsx
+  - components/home/FeaturedWork.tsx
+  - components/home/StatsSection.tsx
+  - components/home/ServicesPreview.tsx
+  - components/home/TestimonialsSlider.tsx
+  - components/home/CtaBanner.tsx
+  - components/three/HeroScene.tsx
+  - components/three/WebGLFallback.tsx
+  - components/ui/AnimatedCounter.tsx
+  - components/ui/LoadingSkeleton.tsx
+
+[TODO] Pages
+  - /about
+  - /portfolio + /portfolio/[slug]
+  - /galleries (3D museum)
+  - /services
+  - /pricing
+  - /booking (7-step wizard)
+  - /blog + /blog/[slug]
+  - /contact
+  - /client/[token]
+
+[TODO] API Routes
+  - /api/portfolio
+  - /api/portfolio/[slug]
+  - /api/portfolio/featured
+  - /api/blog
+  - /api/blog/[slug]
+  - /api/testimonials
+  - /api/schedule/availability
+  - /api/booking
+  - /api/contact
+  - /api/client/[token]
+
+[TODO] Hooks
+  - usePortfolio.ts
+  - useBlog.ts
+  - useScheduleAvailability.ts
+  - useBooking.ts
+  - useClientGallery.ts
+  - useThree.ts
+  - useIntersectionObserver.ts
 
 ================================================================================
-DIRECTORY STRUCTURE
+DESIGN SYSTEM
 ================================================================================
 
-resort/
-├── .env.local                      ← Environment variable keys (fill in values)
-├── next.config.mjs                 ← Next.js 16 config (ESM)
-├── package.json                    ← Dependencies
-├── overviewProject.txt             ← This file
-│
-├── app/
-│   ├── layout.js                   ← Root layout: metadata, global CSS imports
-│   ├── page.js                     ← Homepage: composes all 13 section components
-│   ├── styles/
-│   │   ├── globals.css             ← CSS tokens, reset, shared classes
-│   │   ├── animations.css          ← Keyframe animation definitions
-│   │   ├── parallax.css            ← Parallax utility classes
-│   │   ├── mediaQueries.css        ← ALL responsive breakpoints (protocol rule)
-│   │   ├── header.module.css
-│   │   ├── hero.module.css
-│   │   ├── booking.module.css
-│   │   ├── whychooseus.module.css
-│   │   ├── rooms.module.css
-│   │   ├── services.module.css
-│   │   ├── amenities.module.css
-│   │   ├── testimonials.module.css
-│   │   ├── gallery.module.css
-│   │   ├── location.module.css
-│   │   ├── faq.module.css
-│   │   ├── contact.module.css
-│   │   └── footer.module.css
-│   └── api/
-│       ├── booking/route.js        ← POST /api/booking — booking inquiry handler
-│       └── contact/route.js        ← POST /api/contact — contact form handler
-│
-├── components/                     ← One component per section
-│   ├── Header.jsx                  ← Sticky nav, transparent → solid on scroll
-│   ├── Hero.jsx                    ← Full-viewport parallax hero
-│   ├── BookingWidget.jsx           ← Date/guest form below hero
-│   ├── WhyChooseUs.jsx             ← 4 USP cards (2×2 grid)
-│   ├── RoomsShowcase.jsx           ← 3 room cards with images
-│   ├── ServicesShowcase.jsx        ← Tabbed services (Wellness/Dining/Adventures)
-│   ├── AmenitiesDisplay.jsx        ← 12 amenity icon cards (4-col grid)
-│   ├── TestimonialsCarousel.jsx    ← Auto-advancing carousel, 6s interval
-│   ├── GalleryGrid.jsx             ← Masonry grid + lightbox
-│   ├── FAQSection.jsx              ← Animated accordion
-│   ├── LocationMap.jsx             ← Embedded map + contact info cards
-│   ├── ContactSection.jsx          ← Parallax bg + 2-col contact form
-│   └── Footer.jsx                  ← 4-col footer + social + legal
-│
-├── hooks/
-│   ├── useParallax.js              ← Parallax offset calc via RAF
-│   ├── useScrollTrigger.js         ← GSAP ScrollTrigger hook
-│   ├── useIntersectionObserver.js  ← Visibility detection for scroll animations
-│   └── useWindowSize.js            ← Window dimensions for responsive logic
-│
-├── lib/
-│   ├── animations.js               ← Centralized Motion variant configs
-│   ├── constants.js                ← Colors, fonts, breakpoints, spacing tokens
-│   └── parallax-utils.js           ← isMobileDevice(), prefersReducedMotion()
-│
-└── public/
-    └── data/
-        ├── rooms.json              ← 3 room types with prices, features, images
-        ├── amenities.json          ← 12 amenities with icons + descriptions
-        ├── services.json           ← 3 tabs × 3 services (Wellness/Dining/Adventures)
-        ├── testimonials.json       ← 4 guest reviews with photos
-        └── faq.json                ← 8 FAQ items
+Theme:   Dark luxury | Cinematic | Minimal
+Bg:      #09090b
+Accent:  #d4a574 (warm gold)
+Teal:    #7ba8a8
+Fonts:   Syne (display) | DM Sans (body) | DM Mono (mono)
 
 ================================================================================
-PAGE SECTIONS (in render order — app/page.js)
+MIGRATION COMMANDS (run when DB is ready)
 ================================================================================
 
-Section 1  : Header           — Sticky nav, transparent → cream on scroll, mobile drawer
-Section 2  : Hero             — 100dvh, parallax bg, staggered headline + CTA buttons
-Section 3  : BookingWidget    — Date/check-in/guests form card, overlaps hero bottom
-Section 4  : WhyChooseUs      — 4 USP cards, 2×2 grid, hover lift + gold border
-Section 5  : RoomsShowcase    — 3 room cards, image zoom on hover, price display
-Section 6  : ServicesShowcase — Dark parallax bg, 3 tabs, service cards with duration
-Section 7  : AmenitiesDisplay — 12 amenity cards, 4-col grid, hover navy bg + gold icon
-Section 8  : TestimonialsCarousel — Parallax bg, auto-advances every 6s, pause on hover
-Section 9  : GalleryGrid      — 4-col masonry, span variants, lightbox with nav
-Section 10 : FAQSection       — Accordion with arrow rotation, gold border on open
-Section 11 : LocationMap      — Embedded iframe map + 4 contact info cards
-Section 12 : ContactSection   — Parallax bg, 2-col layout (info + form), success state
-Section 13 : Footer           — 4-col grid, social icons, legal links, parallax bg
+npx prisma migrate dev --name init
+npx prisma generate
 
-================================================================================
-DATA MODELS
-================================================================================
-
-rooms.json
-  id, name, tagline, description, price (PHP), currency, priceLabel,
-  capacity, size (sqm), rating, reviewCount, image (Unsplash URL), features[], category
-
-amenities.json
-  id, name, icon (emoji), description
-
-services.json
-  tabs[]: { id, label, services[]: { id, name, icon, description, duration } }
-
-testimonials.json
-  id, name, location, stayType, rating, quote, avatar (Unsplash URL), date
-
-faq.json
-  id, question, answer
-
-================================================================================
-API ROUTES
-================================================================================
-
-POST /api/booking
-  Body: { checkIn, checkOut, guests, roomType }
-  Response: { success, message }
-  Note: Connect to email service via BOOKING_EMAIL env var
-
-POST /api/contact
-  Body: { firstName, lastName, email, phone, inquiryType, message }
-  Response: { success, message }
-  Note: Connect to email service via CONTACT_EMAIL + RESEND_API_KEY env vars
-
-================================================================================
-ANIMATION SYSTEM
-================================================================================
-
-Library        : Motion 12.x (import from 'motion/react')
-                 Note: package was 'framer-motion', now renamed to 'motion'
-                 Both packages work; new installs should use 'motion'
-
-GSAP           : 3.15.x — now 100% free including all plugins (SplitText, MorphSVG, etc.)
-                 Use @gsap/react useGSAP() hook for proper React cleanup
-
-Motion Variants (lib/animations.js):
-  fadeIn, fadeInSlow, slideUp, slideUpFast, slideInLeft, slideInRight,
-  scaleUp, scaleBounce, containerVariants, cardContainerVariants,
-  childVariants, cardChildVariants, pageTransition
-
-Parallax:
-  - Desktop: requestAnimationFrame scroll handler (useParallax hook)
-  - Mobile: disabled (background-attachment: scroll in mediaQueries.css)
-  - Respects prefers-reduced-motion (parallax-utils.js check)
-
-Scroll Animations:
-  - useIntersectionObserver hook — triggers Motion animate on viewport entry
-  - One-time trigger (unobserves after first intersection)
-
-================================================================================
-COLOR TOKENS (globals.css)
-================================================================================
-
---color-primary-navy    : #1a2f4f
---color-dark-navy       : #0f1e33
---color-accent-gold     : #d4a574
---color-light-gold      : #e8c99a
---color-accent-teal     : #7ba8a8
---color-neutral-cream   : #f5f1e8
---color-sage-green      : #9ca89f
---color-white           : #ffffff
---color-text-dark       : #2c2c2c
---color-text-muted      : #666666
-
-================================================================================
-SETUP COMMANDS
-================================================================================
-
-npm install
-npm run dev        ← runs on http://localhost:3000 with Turbopack
-
-================================================================================
-MISSING / TODO
-================================================================================
-
-[ ] Fill in .env.local values (CONTACT_EMAIL, BOOKING_EMAIL, RESEND_API_KEY)
-[ ] Replace Unsplash placeholder images with actual resort photos
-[ ] Replace emoji icons in amenities/services JSON with SVG icons
-[ ] Connect API routes to real email service (Resend recommended)
-[ ] Add Google Maps embed URL in LocationMap.jsx
-[ ] Add components/common/ folder (ParallaxSection, Lightbox, AnimatedButton)
-[ ] Add app/rooms/[id]/page.jsx for individual room detail pages
-[ ] Add app/gallery/page.jsx for standalone gallery page
-[ ] Add app/contact/page.jsx for standalone contact page
-[ ] Update import statements from 'framer-motion' to 'motion/react' in all components
-
-================================================================================
-END
 ================================================================================

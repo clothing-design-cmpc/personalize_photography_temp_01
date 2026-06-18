@@ -1,241 +1,354 @@
-/* ============================================================
-   MEDIA QUERIES — All responsive breakpoints for the resort site
-   Breakpoints: 480px (mobile), 768px (tablet), 1024px (desktop)
-   ALL @media rules must live here — never inside module CSS files
-   ============================================================ */
+/* ─── LensVerse Media Queries ───────────────────────────────────────────────── */
+/* All responsive breakpoints live here — NEVER inside component CSS files      */
 
-/* ── 1. HEADER ──────────────────────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────── */
+/* BREAKPOINTS:                                                                  */
+/*   Mobile portrait:  < 480px                                                  */
+/*   Mobile landscape: 480px – 767px                                            */
+/*   Tablet:           768px – 1023px                                           */
+/*   Laptop:           1024px – 1279px                                          */
+/*   Desktop:          1280px+                                                   */
+/* ──────────────────────────────────────────────────────────────────────────── */
 
-@media (max-width: 768px) {
-  /* Hide desktop nav and CTA; show hamburger */
-  nav[aria-label="Main navigation"],
-  header > button:not(#hamburgerButton) {
-    display: none !important;
+/* ─── Mobile portrait (< 480px) ─────────────────────────────────────────────── */
+@media (max-width: 479px) {
+
+  /* Container */
+  .containerContent,
+  .containerNarrow {
+    padding-inline: var(--space-lg);
   }
-  #hamburgerButton {
-    display: flex !important;
+
+  /* Section spacing */
+  .sectionPadding {
+    padding-block: var(--space-2xl);
   }
-}
 
-/* ── 2. HERO ─────────────────────────────────────────────────── */
-
-@media (max-width: 768px) {
-  /* Disable parallax transform on mobile */
-  .heroBackground {
-    background-attachment: scroll;
-    will-change: auto;
+  /* Header */
+  .headerInner {
+    padding-inline: var(--space-lg);
+    height: 60px;
   }
-}
 
-/* ── 3. BOOKING WIDGET ───────────────────────────────────────── */
-
-@media (max-width: 1024px) {
-  .bookingFields {
-    grid-template-columns: repeat(2, 1fr);
+  .headerNav {
+    display: none;
   }
-}
 
-@media (max-width: 768px) {
-  .bookingCard {
-    padding: 28px 20px;
+  .headerMobileMenuButton {
+    display: flex;
   }
-  .bookingFields {
-    grid-template-columns: 1fr;
-  }
-}
 
-/* ── 4. WHY CHOOSE US ────────────────────────────────────────── */
-
-@media (max-width: 768px) {
-  .sectionBg {
-    background-attachment: scroll;
+  /* Hero */
+  .heroHeadline {
+    font-size: clamp(2rem, 9vw, 2.5rem);
   }
-}
 
-@media (max-width: 480px) {
-  /* Stack 2-col grid to 1-col on small mobile */
-  .whyChooseUsGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ── 5. ROOMS SHOWCASE ───────────────────────────────────────── */
-
-@media (max-width: 1024px) {
-  .roomsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .roomsGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ── 6. SERVICES SHOWCASE ────────────────────────────────────── */
-
-@media (max-width: 768px) {
-  .section {
-    background-attachment: scroll;
-  }
-  .serviceGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .tabs {
-    gap: 6px;
-  }
-  .tab {
-    padding: 8px 18px;
-    font-size: 0.8125rem;
-  }
-}
-
-/* ── 7. AMENITIES DISPLAY ────────────────────────────────────── */
-
-@media (max-width: 1024px) {
-  .amenitiesGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .amenitiesGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .sectionBg {
-    background-attachment: scroll;
-  }
-}
-
-@media (max-width: 480px) {
-  .amenitiesGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-}
-
-/* ── 8. TESTIMONIALS CAROUSEL ────────────────────────────────── */
-
-@media (max-width: 768px) {
-  .section {
-    background-attachment: scroll;
-  }
-  .card {
-    padding: 28px 20px;
-  }
-  .quoteText {
+  .heroSubheadline {
     font-size: 1rem;
   }
-}
 
-/* ── 9. GALLERY GRID ─────────────────────────────────────────── */
-
-@media (max-width: 768px) {
-  .galleryGrid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 160px;
-  }
-  .galleryGrid > *:nth-child(1),
-  .galleryGrid > *:nth-child(6) {
-    grid-column: span 1;
-    grid-row: span 1;
-  }
-}
-
-@media (max-width: 480px) {
-  .galleryGrid {
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 140px;
-    gap: 8px;
-  }
-}
-
-/* ── 10. LOCATION & MAP ──────────────────────────────────────── */
-
-@media (max-width: 768px) {
-  .locationContentGrid {
-    grid-template-columns: 1fr;
-  }
-  .mapEmbed {
-    height: 280px;
-  }
-}
-
-/* ── 11. FAQ ─────────────────────────────────────────────────── */
-
-@media (max-width: 768px) {
-  .faqList {
-    max-width: 100%;
-  }
-}
-
-/* ── 12. CONTACT SECTION ─────────────────────────────────────── */
-
-@media (max-width: 768px) {
-  .contactContent {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .section {
-    background-attachment: scroll;
-  }
-}
-
-@media (max-width: 480px) {
-  .formRow {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ── 13. FOOTER ──────────────────────────────────────────────── */
-
-@media (max-width: 1024px) {
-  .footerTopRow {
-    grid-template-columns: 1fr 1fr;
-    gap: 36px;
-  }
-  .footerBg {
-    background-attachment: scroll;
-  }
-}
-
-@media (max-width: 640px) {
-  .footerTopRow {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-  .footerBottomRow {
+  .heroCtaGroup {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+    width: 100%;
+  }
+
+  .heroCtaGroup .buttonPrimary,
+  .heroCtaGroup .buttonSecondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Featured work masonry */
+  .featuredWorkGrid {
+    columns: 1;
+    gap: var(--space-md);
+  }
+
+  /* Stats */
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .statsNumber {
+    font-size: 2rem;
+  }
+
+  /* Services preview */
+  .servicesPreviewGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  /* Testimonials */
+  .testimonialsSlider {
+    padding-inline: var(--space-lg);
+  }
+
+  /* Portfolio grid */
+  .portfolioGrid {
+    columns: 1;
+  }
+
+  /* Blog grid */
+  .blogGrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Booking wizard */
+  .bookingWizardContainer {
+    padding-inline: var(--space-lg);
+  }
+
+  .bookingStepGrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Contact form */
+  .contactFormGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  /* Footer */
+  .footerGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .footerLegal {
+    flex-direction: column;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  /* Equipment model viewer */
+  .equipmentModelContainer {
+    height: 300px;
+  }
+
+  /* Timeline */
+  .timelineItem {
+    padding-left: var(--space-xl);
+  }
+
+  /* Story sections stack on mobile */
+  .storySectionGrid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Gallery scene controls */
+  .galleryControlsHint {
+    font-size: 0.625rem;
+    padding: var(--space-xs) var(--space-md);
   }
 }
 
-/* ── GLOBAL SECTION PADDING ──────────────────────────────────── */
+/* ─── Mobile landscape (480px – 767px) ──────────────────────────────────────── */
+@media (min-width: 480px) and (max-width: 767px) {
 
-@media (max-width: 768px) {
-  /* Reduce section padding on mobile */
-  section {
-    padding-top: 60px !important;
-    padding-bottom: 60px !important;
+  .containerContent,
+  .containerNarrow {
+    padding-inline: var(--space-xl);
   }
-  .container {
-    padding: 0 16px;
+
+  .headerNav {
+    display: none;
   }
-  /* Reduce header spacing */
-  .sectionHeading,
-  .sectionHeadingLight {
-    font-size: clamp(1.625rem, 6vw, 2.5rem);
+
+  .headerMobileMenuButton {
+    display: flex;
+  }
+
+  .heroHeadline {
+    font-size: clamp(2.25rem, 7vw, 3rem);
+  }
+
+  .featuredWorkGrid {
+    columns: 2;
+    gap: var(--space-md);
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .servicesPreviewGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .portfolioGrid {
+    columns: 2;
+  }
+
+  .blogGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footerGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .storySectionGrid {
+    grid-template-columns: 1fr !important;
   }
 }
 
-@media (max-width: 480px) {
-  section {
-    padding-top: 48px !important;
-    padding-bottom: 48px !important;
+/* ─── Tablet (768px – 1023px) ───────────────────────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  .headerNav {
+    display: none;
+  }
+
+  .headerMobileMenuButton {
+    display: flex;
+  }
+
+  .heroHeadline {
+    font-size: clamp(3rem, 6vw, 4rem);
+  }
+
+  .featuredWorkGrid {
+    columns: 2;
+    gap: var(--space-lg);
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .servicesPreviewGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .portfolioGrid {
+    columns: 2;
+  }
+
+  .blogGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .bookingStepGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contactFormGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footerGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .equipmentModelContainer {
+    height: 400px;
+  }
+}
+
+/* ─── Laptop (1024px – 1279px) ──────────────────────────────────────────────── */
+@media (min-width: 1024px) and (max-width: 1279px) {
+
+  .headerNav {
+    display: flex;
+  }
+
+  .headerMobileMenuButton {
+    display: none;
+  }
+
+  .heroHeadline {
+    font-size: clamp(3.5rem, 5vw, 5rem);
+  }
+
+  .featuredWorkGrid {
+    columns: 3;
+    gap: var(--space-lg);
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .servicesPreviewGrid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .portfolioGrid {
+    columns: 3;
+  }
+
+  .blogGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .footerGrid {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
+}
+
+/* ─── Desktop (1280px+) ──────────────────────────────────────────────────────── */
+@media (min-width: 1280px) {
+
+  .headerNav {
+    display: flex;
+  }
+
+  .headerMobileMenuButton {
+    display: none;
+  }
+
+  .heroHeadline {
+    font-size: clamp(4rem, 5vw, 6rem);
+  }
+
+  .featuredWorkGrid {
+    columns: 3;
+    gap: var(--space-xl);
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .servicesPreviewGrid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .portfolioGrid {
+    columns: 3;
+    gap: var(--space-lg);
+  }
+
+  .blogGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .bookingStepGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contactFormGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footerGrid {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
+}
+
+/* ─── Dark mode overrides (prefers-color-scheme) ─────────────────────────────── */
+/* Design is dark-first — no overrides needed; already defaults to dark theme    */
+
+/* ─── Reduced motion ────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
