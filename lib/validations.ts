@@ -104,6 +104,12 @@ export const portfolioQuerySchema = z.object({
     .optional(),
 });
 
+// ─── Client gallery access schema ─────────────────────────────────────────────
+// Validates the optional password submitted when opening a protected client gallery
+export const clientGalleryAccessSchema = z.object({
+  password: z.string().max(100).optional(),
+});
+
 // ─── Blog query params schema ─────────────────────────────────────────────────
 // Validates query strings on GET /api/blog
 export const blogQuerySchema = z.object({
