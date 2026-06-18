@@ -71,7 +71,7 @@ export default function CtaBanner() {
             flexWrap: "wrap",
           }}
         >
-          <Link href="/booking" className="buttonPrimary">
+          <Link href="/services" className="buttonPrimary">
             Book Your Session
           </Link>
           <Link href="/contact" className="buttonSecondary">

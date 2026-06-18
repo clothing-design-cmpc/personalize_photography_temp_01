@@ -102,7 +102,7 @@ export default function ContactMeSection() {
           <Link href="/contact" className="buttonPrimary">
             Get in Touch
           </Link>
-          <Link href="/booking" className="buttonSecondary">
+          <Link href="/services" className="buttonSecondary">
             Book a Session
           </Link>
         </div>

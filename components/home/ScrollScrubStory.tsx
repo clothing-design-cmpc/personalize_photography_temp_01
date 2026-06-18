@@ -69,7 +69,7 @@ function LayoutHero({ chapter, isActive }: { chapter: ScrubChapter; isActive: bo
       </p>
       <div style={{ display: "flex", gap: "var(--space-md)", flexWrap: "wrap", justifyContent: "center" }}>
         <Link href="/portfolio" className="buttonPrimary">View Portfolio</Link>
-        <Link href="/booking"   className="buttonSecondary">Book Session</Link>
+        <Link href="/services"   className="buttonSecondary">Book Session</Link>
       </div>
     </div>
   );
@@ -335,7 +335,7 @@ function LayoutContact({ chapter, isActive }: { chapter: ScrubChapter; isActive:
       </p>
       <div style={{ display: "flex", gap: "var(--space-md)", flexWrap: "wrap", justifyContent: "center" }}>
         <Link href="/contact" className="buttonPrimary">Get in Touch</Link>
-        <Link href="/booking" className="buttonSecondary">Book a Session</Link>
+        <Link href="/services" className="buttonSecondary">Book a Session</Link>
       </div>
     </div>
   );

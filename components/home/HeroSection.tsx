@@ -114,7 +114,7 @@ export default function HeroSection() {
           <Link href="/portfolio" className="buttonPrimary">
             View Portfolio
           </Link>
-          <Link href="/booking" className="buttonSecondary">
+          <Link href="/services" className="buttonSecondary">
             Book Session
           </Link>
         </div>

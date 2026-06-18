@@ -156,7 +156,7 @@ export default function Header() {
             className="headerNav"
             style={{ alignItems: "center", gap: "var(--space-md)" }}
           >
-            <Link href="/booking" className="buttonPrimary">
+            <Link href="/services" className="buttonPrimary">
               Book Session
             </Link>
           </div>
@@ -294,7 +294,7 @@ export default function Header() {
         ))}
 
         <Link
-          href="/booking"
+          href="/services"
           className="buttonPrimary"
           style={{
             marginTop: "var(--space-xl)",

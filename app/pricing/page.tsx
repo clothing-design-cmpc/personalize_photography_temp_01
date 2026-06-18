@@ -16,7 +16,7 @@ interface PricingTier {
 const pricingTiers: PricingTier[] = [
   {
     name:        "Essential",
-    price:       "$450",
+    price:       "₱8,000",
     cadence:     "per session",
     description: "A focused single-location session for portraits, small events, or simple product shoots.",
     features: [
@@ -29,7 +29,7 @@ const pricingTiers: PricingTier[] = [
   },
   {
     name:        "Signature",
-    price:       "$1,200",
+    price:       "₱18,000",
     cadence:     "per session",
     description: "Our most-booked package — a full half-day of coverage for weddings, travel, and brand shoots.",
     features: [
@@ -43,7 +43,7 @@ const pricingTiers: PricingTier[] = [
   },
   {
     name:        "Premiere",
-    price:       "$2,800",
+    price:       "₱45,000",
     cadence:     "per session",
     description: "Full-day, multi-location coverage for weddings, commercial campaigns, and destination travel.",
     features: [

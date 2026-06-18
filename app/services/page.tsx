@@ -6,6 +6,7 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import BookingCalendar from "@/components/BookingCalendar";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -259,6 +260,9 @@ export default function ServicesPage() {
       {serviceDetails.map((service, index) => (
         <ServiceSection key={service.slug} service={service} index={index} />
       ))}
+
+      {/* Dynamic booking calendar — placed between services and closing CTA */}
+      <BookingCalendar />
 
       {/* Closing CTA */}
       <section className="sectionPadding" style={{ background: "var(--color-bg)", textAlign: "center" }}>
